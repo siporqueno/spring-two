@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head th:replace="fragments/header.html :: head"/>
+
+<body class="bg-light">
+
+<nav th:replace="fragments/header.html :: header"/>
+
+<div class="d-flex">
+
+    <div th:replace="fragments/sidebar :: sidebar"></div>
+
+    <div class="content p-4">
+        <h2 class="mb-4">Blank/Starter</h2>
+
+        <div class="card mb-4">
+            <div class="card-body">
+                <div class="container">
+                    <div class="row py-2">
+                        <div sec:authorize="hasRole('ADMIN')" class="col-12">
+                            <a class="btn btn-primary" th:href="@{/product/new}">Добавить продукт</a>
+                        </div>
+
+                        <div class="col-12 mt-3">
+                            <form class="form-inline" th:method="get">
+
+                                <div class="form-group mx-sm-3 mb-2 mr-2">
+                                    <label for="titleFilter" class="sr-only">Title filter</label>
+                                    <input type="text" class="form-control" id="titleFilter" th:value="${param.titleFilter}"
+                                           name="titleFilter" placeholder="Title filter">
+                                </div>
+
+                                <div class="form-group mx-sm-3 mb-2 mr-2">
+                                    <label for="minPrice" class="sr-only">Minimum price</label>
+                                    <input type="number" class="form-control" id="minPrice" th:value="${param.minPrice}"
+                                           name="minPrice" placeholder="Min price">
+                                </div>
+
+                                <div class="form-group mx-sm-3 mb-2 mr-2">
+                                    <label for="maxPrice" class="sr-only">Maximum price</label>
+                                    <input type="number" class="form-control" id="maxPrice" th:value="${param.maxPrice}"
+                                           name="maxPrice" placeholder="Max price">
+                                </div>
+
+                                <button type="submit" class="btn btn-primary mb-2">Apply</button>
+                            </form>
+                        </div>
+
+                        <div class="col-12">
+                            <table class="table table-bordered my-2">
+                                <thead>
+                                <tr>
+                                    <th scope="col" th:replace="fragments/sort_header :: sort_header_product ('Id', 'id')"/>
+                                    <th scope="col" th:replace="fragments/sort_header :: sort_header_product ('Title', 'title')"/>
+                                    <th scope="col"
+                                        th:replace="fragments/sort_header :: sort_header_product ('Description', 'description')"/>
+                                    <th scope="col" th:replace="fragments/sort_header :: sort_header_product ('Price', 'price')"/>
+                                    <th scope="col" th:replace="fragments/sort_header :: sort_header_product ('Category', 'category')"/>
+                                    <th scope="col">Actions</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:if="${products.hasContent()}" th:each="product : ${products}">
+                                    <td th:text="${product.id}" scope="row">1</td>
+                                    <td th:text="${product.title}">Chocolate</td>
+                                    <td th:text="${product.description}">Lindt</td>
+                                    <td th:text="${product.price}">100</td>
+                                    <td th:text="${product.category.name}">Sweets</td>
+                                    <td>
+                                        <a sec:authorize="hasRole('ADMIN')" class="btn btn-success"
+                                           th:href="@{/product/{id}(id = ${product.id})}"><i class="fas fa-edit"></i></a>
+                                        <form sec:authorize="hasRole('ADMIN')"
+                                              class="d-inline" th:method="delete" th:action="@{/product/{id}(id = ${product.id})}">
+                                            <button type="submit" class="btn btn-danger"><i
+                                                    class="far fa-trash-alt"></i></button>
+                                        </form>
+                                    </td>
+                                </tr>
+
+                                <tr th:unless="${products.hasContent()}">
+                                    <td colspan="4">No data</td>
+                                </tr>
+
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="col-12">
+                            <nav aria-label="...">
+                                <ul class="pagination">
+                                    <li class="page-item" th:classappend="${!products.hasPrevious()} ? 'disabled'">
+                                        <a class="page-link" th:href="@{/product(page=${previousPageNumber}, size=${products.size},
+                           titleFilter=${param.titleFilter}, minPrice=${param.minPrice}, maxPrice=${param.maxPrice}, sortColumn=${param.sortColumn})}"
+                                           tabindex="-1">Previous</a>
+                                    </li>
+
+                                    <li th:each="num: ${#numbers.sequence(1, (products.totalPages <= 1)? 1 : products.totalPages)}"
+                                        class="page-item" th:classappend="${num == products.number + 1} ? 'active'">
+                                        <a th:text="${num}"
+                                           th:href="@{/product(page=${num}, size=${products.size},
+                           titleFilter=${param.titleFilter}, minPrice=${param.minPrice}, maxPrice=${param.maxPrice}, sortColumn=${param.sortColumn})}"
+                                           class="page-link">1 <span th:if="${num == products.number + 1}"
+                                                                     class="sr-only">(current)</span></a>
+                                    </li>
+
+                                    <li class="page-item" th:classappend="${!products.hasNext()} ? 'disabled'">
+                                        <a class="page-link" th:href="@{/product(page=${nextPageNumber}, size=${products.size},
+                           titleFilter=${param.titleFilter}, minPrice=${param.minPrice}, maxPrice=${param.maxPrice}, sortColumn=${param.sortColumn})}">Next</a>
+                                    </li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<th:block th:replace="fragments/footer.html :: scripts"/>
+
+</body>
+</html>

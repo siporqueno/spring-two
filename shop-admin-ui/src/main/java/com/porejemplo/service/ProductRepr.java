@@ -1,40 +1,43 @@
-package com.porejemplo.persist.model;
+package com.porejemplo.service;
 
-import javax.persistence.*;
+import com.porejemplo.persist.model.Category;
+import com.porejemplo.persist.model.Product;
+
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.PositiveOrZero;
 import java.math.BigDecimal;
-import java.util.Objects;
 
-@Entity
-@Table(name = "products")
-public class Product {
+public class ProductRepr {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "title", nullable = false)
+    @NotEmpty
     private String title;
 
-    @Column(name = "description")
     private String description;
 
-    @Column(name = "price", nullable = false)
+    @PositiveOrZero
     private BigDecimal price;
 
-    @ManyToOne(optional = false)
     private Category category;
 
-    public Product() {
+    public ProductRepr() {
     }
 
-    public Product(String title, String description, BigDecimal price, Category category) {
+    public ProductRepr(@NotEmpty String title, String description, @PositiveOrZero BigDecimal price, Category category) {
         this.title = title;
         this.description = description;
         this.price = price;
         this.category = category;
     }
 
-
+    public ProductRepr(Product product) {
+        this.id = product.getId();
+        this.title = product.getTitle();
+        this.description = product.getDescription();
+        this.price = product.getPrice();
+        this.category=product.getCategory();
+    }
 
     public Long getId() {
         return id;
@@ -74,18 +77,5 @@ public class Product {
 
     public void setCategory(Category category) {
         this.category = category;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Product product = (Product) o;
-        return Objects.equals(id, product.id);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id);
     }
 }
