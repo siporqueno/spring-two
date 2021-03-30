@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head th:replace="fragments/header.html :: head"/>
+
+<body class="bg-light">
+
+<nav th:replace="fragments/header.html :: header"/>
+
+<div class="d-flex">
+
+    <div th:replace="fragments/sidebar :: sidebar"></div>
+
+    <div class="content p-4">
+        <h2 class="mb-4">Blank/Starter</h2>
+
+        <div class="card mb-4">
+            <div class="card-body">
+                <div class="container">
+                    <div class="row py-2">
+                        <div sec:authorize="hasRole('SUPER_ADMIN')" class="col-12">
+                            <a class="btn btn-primary" th:href="@{/user/new}">Добавить</a>
+                        </div>
+
+                        <div class="col-12 mt-3">
+                            <form class="form-inline" th:method="get">
+
+                                <div class="form-group mb-2 mr-2">
+                                    <label for="usernameFilter" class="sr-only">Username filter</label>
+                                    <input type="text" class="form-control" id="usernameFilter"
+                                           th:value="${param.usernameFilter}"
+                                           name="usernameFilter" placeholder="Username filter">
+                                </div>
+
+                                <button type="submit" class="btn btn-primary mb-2">Apply</button>
+                            </form>
+                        </div>
+
+                        <div class="col-12">
+                            <table class="table table-bordered my-2">
+                                <thead>
+                                <tr>
+                                    <th scope="col"
+                                        th:replace="fragments/sort_header :: sort_header_user ('Id', 'id')"/>
+                                    <th scope="col"
+                                        th:replace="fragments/sort_header :: sort_header_user ('Username', 'username')"/>
+                                    <th sec:authorize="hasRole('SUPER_ADMIN')" scope="col">Actions</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:if="${users.hasContent()}" th:each="user : ${users}">
+                                    <th th:text="${user.id}" scope="row">1</th>
+                                    <td th:text="${user.login}">Alex</td>
+                                    <td sec:authorize="hasRole('SUPER_ADMIN')">
+                                        <a class="btn btn-success" th:href="@{/user/{id}(id = ${user.id})}"><i
+                                                class="fas fa-edit"></i></a>
+                                        <form class="d-inline" th:method="delete"
+                                              th:action="@{/user/{id}(id = ${user.id})}">
+                                            <button type="submit" class="btn btn-danger"><i
+                                                    class="far fa-trash-alt"></i></button>
+                                        </form>
+                                    </td>
+                                </tr>
+
+                                <tr th:unless="${users.hasContent()}">
+                                    <td colspan="4">No data</td>
+                                </tr>
+
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="col-12">
+                            <nav aria-label="...">
+                                <ul class="pagination">
+                                    <li class="page-item disabled">
+                                        <a class="page-link" href="#" tabindex="-1">Previous</a>
+                                    </li>
+
+                                    <li th:each="num: ${#numbers.sequence(1, (users.totalPages <= 1)? 1 : users.totalPages)}"
+                                        class="page-item" th:classappend="${num == users.number + 1} ? 'active'">
+                                        <a th:text="${num}"
+                                           th:href="@{/user(page=${num}, size=${users.size},
+                           usernameFilter=${param.usernameFilter}, minAge=${param.minAge}, maxAge=${param.maxAge}, sortField=${param.sortField})}"
+                                           class="page-link">1 <span th:if="${num == users.number + 1}" class="sr-only">(current)</span></a>
+                                    </li>
+
+                                    <li class="page-item">
+                                        <a class="page-link" href="#">Next</a>
+                                    </li>
+                                </ul>
+                            </nav>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<th:block th:replace="fragments/footer.html :: scripts"/>
+
+</body>
+</html>
