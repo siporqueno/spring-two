@@ -1,9 +1,10 @@
 package com.porejemplo.controller;
 
-import com.porejemplo.persist.model.Product;
+import com.porejemplo.controller.repr.ProductRepr;
+import com.porejemplo.error.NotFoundException;
+import com.porejemplo.persist.repo.BrandRepository;
 import com.porejemplo.persist.repo.CategoryRepository;
 import com.porejemplo.service.ItemService;
-import com.porejemplo.service.ProductRepr;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.Optional;
 
@@ -27,10 +29,13 @@ public class ProductController {
 
     private final CategoryRepository categoryRepository;
 
+    private final BrandRepository brandRepository;
+
     @Autowired
-    public ProductController(ItemService<ProductRepr> productService, CategoryRepository categoryRepository) {
+    public ProductController(ItemService<ProductRepr> productService, CategoryRepository categoryRepository, BrandRepository brandRepository) {
         this.productService = productService;
         this.categoryRepository = categoryRepository;
+        this.brandRepository = brandRepository;
     }
 
     @GetMapping
@@ -63,13 +68,14 @@ public class ProductController {
         logger.info("Edit page for id {} requested", id);
 
         model.addAttribute("categories", categoryRepository.findAll());
+        model.addAttribute("brands", brandRepository.findAll());
         model.addAttribute("product", productService.findById(id)
                 .orElseThrow(NotFoundException::new));
         return "product_form";
     }
 
     @PostMapping("/update")
-    public String update(@Valid ProductRepr productRepr, BindingResult result, Model model) {
+    public String update(@Valid ProductRepr product, BindingResult result, Model model) {
         logger.info("Update endpoint requested");
 
         model.addAttribute("categories", categoryRepository.findAll());
@@ -77,8 +83,13 @@ public class ProductController {
             return "product_form";
         }
 
-        logger.info("Updating product with id {}", productRepr.getId());
-        productService.save(productRepr);
+        logger.info("Updating product with id {}", product.getId());
+        try {
+            productService.save(product);
+        } catch (IOException e) {
+            logger.error("Problem with creating or updating product", e);
+            e.printStackTrace();
+        }
         return "redirect:/product";
     }
 
@@ -86,8 +97,9 @@ public class ProductController {
     public String create(Model model) {
         logger.info("New endpoint requested");
 
+        model.addAttribute("product", new ProductRepr());
         model.addAttribute("categories", categoryRepository.findAll());
-        model.addAttribute("product", new Product());
+        model.addAttribute("brands", brandRepository.findAll());
         return "product_form";
     }
 

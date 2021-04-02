@@ -1,4 +1,4 @@
-package com.porejemplo.controller;
+package com.porejemplo.error;
 
 public class NotFoundException extends RuntimeException {
 }

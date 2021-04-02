@@ -1,4 +1,4 @@
-package com.porejemplo.service;
+package com.porejemplo.controller.repr;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.porejemplo.persist.model.Role;

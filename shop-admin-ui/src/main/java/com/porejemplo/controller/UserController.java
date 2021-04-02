@@ -1,8 +1,9 @@
 package com.porejemplo.controller;
 
+import com.porejemplo.error.NotFoundException;
 import com.porejemplo.persist.model.Role;
 import com.porejemplo.persist.repo.RoleRepository;
-import com.porejemplo.service.UserRepr;
+import com.porejemplo.controller.repr.UserRepr;
 import com.porejemplo.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

@@ -1,9 +1,8 @@
 package com.porejemplo.controller;
 
+import com.porejemplo.error.NotFoundException;
 import com.porejemplo.persist.model.Category;
-import com.porejemplo.persist.model.Role;
 import com.porejemplo.persist.repo.CategoryRepository;
-import com.porejemplo.persist.repo.RoleRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

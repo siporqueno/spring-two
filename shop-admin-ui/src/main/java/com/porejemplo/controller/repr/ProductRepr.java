@@ -1,11 +1,17 @@
-package com.porejemplo.service;
+package com.porejemplo.controller.repr;
 
+import com.porejemplo.controllers.repr.PictureRepr;
+import com.porejemplo.persist.model.Brand;
 import com.porejemplo.persist.model.Category;
 import com.porejemplo.persist.model.Product;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.PositiveOrZero;
 import java.math.BigDecimal;
+import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 public class ProductRepr {
 
@@ -21,14 +27,13 @@ public class ProductRepr {
 
     private Category category;
 
-    public ProductRepr() {
-    }
+    private Brand brand;
 
-    public ProductRepr(@NotEmpty String title, String description, @PositiveOrZero BigDecimal price, Category category) {
-        this.title = title;
-        this.description = description;
-        this.price = price;
-        this.category = category;
+    private List<PictureRepr> pictures;
+
+    private MultipartFile[] newPictures;
+
+    public ProductRepr() {
     }
 
     public ProductRepr(Product product) {
@@ -37,6 +42,10 @@ public class ProductRepr {
         this.description = product.getDescription();
         this.price = product.getPrice();
         this.category=product.getCategory();
+        this.brand=product.getBrand();
+        this.pictures = product.getPictures().stream()
+                .map(PictureRepr::new)
+                .collect(Collectors.toList());
     }
 
     public Long getId() {
@@ -77,5 +86,42 @@ public class ProductRepr {
 
     public void setCategory(Category category) {
         this.category = category;
+    }
+
+    public Brand getBrand() {
+        return brand;
+    }
+
+    public void setBrand(Brand brand) {
+        this.brand = brand;
+    }
+
+    public List<PictureRepr> getPictures() {
+        return pictures;
+    }
+
+    public void setPictures(List<PictureRepr> pictures) {
+        this.pictures = pictures;
+    }
+
+    public MultipartFile[] getNewPictures() {
+        return newPictures;
+    }
+
+    public void setNewPictures(MultipartFile[] newPictures) {
+        this.newPictures = newPictures;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ProductRepr that = (ProductRepr) o;
+        return id.equals(that.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 }

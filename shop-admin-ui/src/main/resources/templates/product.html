@@ -54,10 +54,10 @@
                                 <tr>
                                     <th scope="col" th:replace="fragments/sort_header :: sort_header_product ('Id', 'id')"/>
                                     <th scope="col" th:replace="fragments/sort_header :: sort_header_product ('Title', 'title')"/>
-                                    <th scope="col"
-                                        th:replace="fragments/sort_header :: sort_header_product ('Description', 'description')"/>
-                                    <th scope="col" th:replace="fragments/sort_header :: sort_header_product ('Price', 'price')"/>
+                                    <th scope="col" th:replace="fragments/sort_header :: sort_header_product ('Description', 'description')"/>
                                     <th scope="col" th:replace="fragments/sort_header :: sort_header_product ('Category', 'category')"/>
+                                    <th scope="col" th:replace="fragments/sort_header :: sort_header_product ('Brand', 'brand')"/>
+                                    <th scope="col" th:replace="fragments/sort_header :: sort_header_product ('Price', 'price')"/>
                                     <th scope="col">Actions</th>
                                 </tr>
                                 </thead>
@@ -65,9 +65,10 @@
                                 <tr th:if="${products.hasContent()}" th:each="product : ${products}">
                                     <td th:text="${product.id}" scope="row">1</td>
                                     <td th:text="${product.title}">Chocolate</td>
-                                    <td th:text="${product.description}">Lindt</td>
-                                    <td th:text="${product.price}">100</td>
+                                    <td th:text="${product.description}">Orange</td>
                                     <td th:text="${product.category.name}">Sweets</td>
+                                    <td th:text="${product.brand.name}">Lindt</td>
+                                    <td th:text="${product.price}">100</td>
                                     <td>
                                         <a sec:authorize="hasRole('ADMIN')" class="btn btn-success"
                                            th:href="@{/product/{id}(id = ${product.id})}"><i class="fas fa-edit"></i></a>
