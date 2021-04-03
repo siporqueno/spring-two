@@ -36,7 +36,6 @@ public class ProductController {
     public String productPage(@PathVariable("id") Long id, Model model) {
         model.addAttribute("product", productService.findById(id)
                 .orElseThrow(NotFoundException::new));
-        logger.info("Product description: "+productService.findById(id).get().getDescription());
         return "product-details";
     }
 }
