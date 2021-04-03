@@ -85,6 +85,7 @@ public class ProductService implements ItemService<ProductRepr> {
         Product product = (productRepr.getId() != null) ? productRepository.findById(productRepr.getId())
                 .orElseThrow(NotFoundException::new) : new Product();
         product.setTitle(productRepr.getTitle());
+        product.setDescription(productRepr.getDescription());
         product.setCategory(productRepr.getCategory());
         product.setBrand(productRepr.getBrand());
         product.setPrice(productRepr.getPrice());
