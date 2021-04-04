@@ -1,6 +1,8 @@
 package com.porejemplo.controller;
 
 import com.porejemplo.error.NotFoundException;
+import com.porejemplo.persist.repo.BrandRepository;
+import com.porejemplo.persist.repo.CategoryRepository;
 import com.porejemplo.service.ProductService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,9 +21,16 @@ public class ProductController {
 
     private final ProductService productService;
 
+    private final CategoryRepository categoryRepository;
+
+    private final BrandRepository brandRepository;
+
+
     @Autowired
-    public ProductController(ProductService productService) {
+    public ProductController(ProductService productService, CategoryRepository categoryRepository, BrandRepository brandRepository) {
         this.productService = productService;
+        this.categoryRepository = categoryRepository;
+        this.brandRepository = brandRepository;
     }
 
     @GetMapping("/")
@@ -29,6 +38,8 @@ public class ProductController {
         logger.info("Product list page");
 
         model.addAttribute("products", productService.findAll());
+        model.addAttribute("categories", categoryRepository.findAll());
+        model.addAttribute("brands", brandRepository.findAll());
         return "categories-left-sidebar";
     }
 
