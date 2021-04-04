@@ -74,7 +74,11 @@ public class SecurityConfiguration {
                     .and()
                     .formLogin()
                     .loginPage("/login")
-                    .defaultSuccessUrl("/product");
+                    .defaultSuccessUrl("/product")
+                    .and()
+                    .logout()
+                    .logoutSuccessUrl("/login")
+                    .permitAll();
         }
     }
 }
