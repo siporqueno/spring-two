@@ -1,0 +1,36 @@
+version: '3'
+services:
+  web:
+    image: nginx
+    volumes:
+      - ./nginx:/etc/nginx/templates
+    ports:
+      - "80:80"
+
+  shop-ui:
+    image: ghcr.io/siporqueno/shop-ui:latest
+    restart: always
+    ports:
+      - "8080"
+    environment:
+      MYSQL_HOSTNAME: "db"
+    command: bash -c "/apps/wait-for-mysql.sh db && /apps/entrypoint.sh"
+
+  shop-admin-ui:
+    image: ghcr.io/siporqueno/shop-admin-ui:latest
+    restart: always
+    ports:
+      - "8080"
+    environment:
+      MYSQL_HOSTNAME: "db"
+    command: bash -c "/apps/wait-for-mysql.sh db && /apps/entrypoint.sh"
+
+  db:
+    image: mysql:8.0.23
+    environment:
+      MYSQL_ROOT_PASSWORD: "root"
+    volumes:
+      - my-db:/var/lib/mysql
+
+volumes:
+  my-db:
