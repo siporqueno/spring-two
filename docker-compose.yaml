@@ -28,7 +28,7 @@ services:
   db:
     image: mysql:8.0.23
     environment:
-      MYSQL_ROOT_PASSWORD: "root"
+      MYSQL_ROOT_PASSWORD: "herMoSa@16_Z"
     volumes:
       - my-db:/var/lib/mysql
 
