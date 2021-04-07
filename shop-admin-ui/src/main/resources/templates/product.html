@@ -19,7 +19,7 @@
             <div class="card-body">
                 <div class="container">
                     <div class="row py-2">
-                        <div sec:authorize="hasRole('ADMIN')" class="col-12">
+                        <div class="col-12">
                             <a class="btn btn-primary" th:href="@{/product/new}">Добавить продукт</a>
                         </div>
 
@@ -54,10 +54,10 @@
                                 <tr>
                                     <th scope="col" th:replace="fragments/sort_header :: sort_header_product ('Id', 'id')"/>
                                     <th scope="col" th:replace="fragments/sort_header :: sort_header_product ('Title', 'title')"/>
-                                    <th scope="col"
-                                        th:replace="fragments/sort_header :: sort_header_product ('Description', 'description')"/>
-                                    <th scope="col" th:replace="fragments/sort_header :: sort_header_product ('Price', 'price')"/>
+                                    <th scope="col" th:replace="fragments/sort_header :: sort_header_product ('Description', 'description')"/>
                                     <th scope="col" th:replace="fragments/sort_header :: sort_header_product ('Category', 'category')"/>
+                                    <th scope="col" th:replace="fragments/sort_header :: sort_header_product ('Brand', 'brand')"/>
+                                    <th scope="col" th:replace="fragments/sort_header :: sort_header_product ('Price', 'price')"/>
                                     <th scope="col">Actions</th>
                                 </tr>
                                 </thead>
@@ -65,13 +65,14 @@
                                 <tr th:if="${products.hasContent()}" th:each="product : ${products}">
                                     <td th:text="${product.id}" scope="row">1</td>
                                     <td th:text="${product.title}">Chocolate</td>
-                                    <td th:text="${product.description}">Lindt</td>
-                                    <td th:text="${product.price}">100</td>
+                                    <td th:text="${product.description}">Orange</td>
                                     <td th:text="${product.category.name}">Sweets</td>
+                                    <td th:text="${product.brand.name}">Lindt</td>
+                                    <td th:text="${product.price}">100</td>
                                     <td>
-                                        <a sec:authorize="hasRole('ADMIN')" class="btn btn-success"
+                                        <a class="btn btn-success"
                                            th:href="@{/product/{id}(id = ${product.id})}"><i class="fas fa-edit"></i></a>
-                                        <form sec:authorize="hasRole('ADMIN')"
+                                        <form
                                               class="d-inline" th:method="delete" th:action="@{/product/{id}(id = ${product.id})}">
                                             <button type="submit" class="btn btn-danger"><i
                                                     class="far fa-trash-alt"></i></button>

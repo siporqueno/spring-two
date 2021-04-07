@@ -1,5 +1,6 @@
 package com.porejemplo.controller;
 
+import com.porejemplo.error.NotFoundException;
 import com.porejemplo.persist.model.Role;
 import com.porejemplo.persist.repo.RoleRepository;
 import org.slf4j.Logger;

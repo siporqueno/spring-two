@@ -1,0 +1,112 @@
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+
+<div th:fragment="sidebar" class="categories_sidebar">
+    <aside class="l_widgest l_p_categories_widget">
+        <div class="l_w_title">
+            <h3>Categories</h3>
+        </div>
+        <ul class="navbar-nav">
+
+            <li th:each="cat : ${categories}" class="nav-item">
+                <a class="nav-link" th:text="${cat.name}" href="#">Men’s Fashion
+                    <i class="icon_plus" aria-hidden="true"></i>
+                    <i class="icon_minus-06" aria-hidden="true"></i>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="#">Men’s Fashion
+                    <i class="icon_plus" aria-hidden="true"></i>
+                    <i class="icon_minus-06" aria-hidden="true"></i>
+                </a>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Women’s Fashion
+                    <i class="icon_plus" aria-hidden="true"></i>
+                    <i class="icon_minus-06" aria-hidden="true"></i>
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <li class="nav-item"><a class="nav-link" href="#">Hoodies & Sweatshirts</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Jackets & Coats</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Blouses & Shirts</a></li>
+                </ul>
+            </li>
+
+        </ul>
+    </aside>
+    <aside class="l_widgest l_fillter_widget">
+        <div class="l_w_title">
+            <h3>Filter section</h3>
+        </div>
+        <div id="slider-range" class="ui_slider"></div>
+        <label for="amount">Price:</label>
+        <input type="text" id="amount" readonly>
+    </aside>
+    <aside class="l_widgest l_color_widget">
+        <div class="l_w_title">
+            <h3>Color</h3>
+        </div>
+        <ul>
+            <li><a href="#"></a></li>
+            <li><a href="#"></a></li>
+            <li><a href="#"></a></li>
+            <li><a href="#"></a></li>
+            <li><a href="#"></a></li>
+            <li><a href="#"></a></li>
+            <li><a href="#"></a></li>
+            <li><a href="#"></a></li>
+            <li><a href="#"></a></li>
+            <li><a href="#"></a></li>
+            <li><a href="#"></a></li>
+            <li><a href="#"></a></li>
+            <li><a href="#"></a></li>
+            <li><a href="#"></a></li>
+            <li><a href="#"></a></li>
+            <li><a href="#"></a></li>
+            <li><a href="#"></a></li>
+            <li><a href="#"></a></li>
+            <li><a href="#"></a></li>
+            <li><a href="#"></a></li>
+            <li><a href="#"></a></li>
+            <li><a href="#"></a></li>
+            <li><a href="#"></a></li>
+            <li><a href="#"></a></li>
+        </ul>
+    </aside>
+    <aside class="l_widgest l_menufacture_widget">
+        <div class="l_w_title">
+            <h3>Manufacturer</h3>
+        </div>
+        <ul>
+            <li th:each="brand : ${brands}"><a th:text="${brand.name}" href="#">Nigel Cabourn.</a></li>
+        </ul>
+    </aside>
+    <aside class="l_widgest l_feature_widget">
+        <div class="l_w_title">
+            <h3>Featured Products</h3>
+        </div>
+        <div class="media">
+            <div class="d-flex">
+                <img src="img/product/featured-product/f-p-5.jpg" alt="">
+            </div>
+            <div class="media-body">
+                <h4>Jeans with <br/> Frayed Hems</h4>
+                <h5>$45.05</h5>
+            </div>
+        </div>
+        <div class="media">
+            <div class="d-flex">
+                <img src="img/product/featured-product/f-p-6.jpg" alt="">
+            </div>
+            <div class="media-body">
+                <h4>Crysp Denim<br/>Montana</h4>
+                <h5>$45.05</h5>
+            </div>
+        </div>
+    </aside>
+</div>
+
+</html>

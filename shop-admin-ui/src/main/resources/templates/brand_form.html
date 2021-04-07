@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="fragments/header :: head"/>
+
+<body class="bg-light">
+
+<nav th:replace="fragments/header :: header"/>
+
+<div class="d-flex">
+
+    <div th:replace="fragments/sidebar :: sidebar"></div>
+
+    <div class="content p-4">
+        <h2 class="mb-4">Brand Form</h2>
+
+        <div class="card mb-4">
+            <div class="card-body">
+                <div class="container">
+                    <div class="row py-2">
+                        <div class="col-12">
+                            <form th:action="@{/brand/update}" th:method="post" th:object="${brand}">
+                                <input type="hidden" th:field="*{id}" id="id" name="id">
+
+                                <div class="form-group">
+                                    <label>Role</label>
+                                    <input type="text" th:field="*{name}" class="form-control" id="brand"
+                                           name="brand"
+                                           placeholder="Enter brand">
+                                </div>
+
+                                <button type="submit" class="btn btn-primary">Submit</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<th:block th:replace="fragments/footer :: scripts"/>
+
+</body>
+</html>

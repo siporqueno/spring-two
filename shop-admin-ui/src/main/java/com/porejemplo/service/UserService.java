@@ -1,5 +1,6 @@
 package com.porejemplo.service;
 
+import com.porejemplo.controller.repr.UserRepr;
 import org.springframework.data.domain.Page;
 
 import java.util.List;

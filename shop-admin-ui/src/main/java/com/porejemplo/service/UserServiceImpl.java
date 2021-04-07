@@ -1,5 +1,6 @@
 package com.porejemplo.service;
 
+import com.porejemplo.controller.repr.UserRepr;
 import com.porejemplo.persist.model.User;
 import com.porejemplo.persist.repo.UserRepository;
 import com.porejemplo.persist.repo.UserSpecification;

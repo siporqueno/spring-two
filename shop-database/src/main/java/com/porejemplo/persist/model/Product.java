@@ -2,6 +2,7 @@ package com.porejemplo.persist.model;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -24,17 +25,22 @@ public class Product {
     @ManyToOne(optional = false)
     private Category category;
 
+    @ManyToOne(optional = false)
+    private Brand brand;
+
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
+    private List<Picture> pictures;
+
     public Product() {
     }
 
-    public Product(String title, String description, BigDecimal price, Category category) {
+    public Product(String title, String description, BigDecimal price, Category category, Brand brand) {
         this.title = title;
         this.description = description;
         this.price = price;
         this.category = category;
+        this.brand = brand;
     }
-
-
 
     public Long getId() {
         return id;
@@ -74,6 +80,22 @@ public class Product {
 
     public void setCategory(Category category) {
         this.category = category;
+    }
+
+    public Brand getBrand() {
+        return brand;
+    }
+
+    public void setBrand(Brand brand) {
+        this.brand = brand;
+    }
+
+    public List<Picture> getPictures() {
+        return pictures;
+    }
+
+    public void setPictures(List<Picture> pictures) {
+        this.pictures = pictures;
     }
 
     @Override

@@ -2,6 +2,7 @@ package com.porejemplo.service;
 
 import org.springframework.data.domain.Page;
 
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
@@ -14,7 +15,7 @@ public interface ItemService<T> {
 
     Optional<T> findById(long id);
 
-    void save(T item);
+    void save(T item) throws IOException;
 
     void delete(long id);
 

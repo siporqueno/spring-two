@@ -1,8 +1,8 @@
 package com.porejemplo.controller;
 
-import com.porejemplo.persist.model.Role;
+import com.porejemplo.controller.repr.UserRepr;
+import com.porejemplo.error.NotFoundException;
 import com.porejemplo.persist.repo.RoleRepository;
-import com.porejemplo.service.UserRepr;
 import com.porejemplo.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,9 +17,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
-import java.util.HashSet;
 import java.util.Optional;
-import java.util.Set;
 
 @Controller
 @RequestMapping("/user")
@@ -79,14 +77,6 @@ public class UserController {
         return "user_form";
     }
 
-    @GetMapping("/new_unauth")
-    public String createUnauth(Model model) {
-        logger.info("Create new user request from unauthenticated user");
-
-        model.addAttribute("user", new UserRepr());
-        return "user_form_unauth";
-    }
-
     @Secured({"ROLE_SUPER_ADMIN"})
     @PostMapping("/update")
     public String update(@Valid @ModelAttribute("user") UserRepr user, BindingResult result, Model model) {
@@ -104,26 +94,6 @@ public class UserController {
         logger.info("Updating user with id {}", user.getId());
         userService.save(user);
         return "redirect:/user";
-    }
-
-    @PostMapping("/update_unauth")
-    public String updateUnauth(@Valid @ModelAttribute("user") UserRepr user, BindingResult result, Model model) {
-        logger.info("Update endpoint requested from unauthenticated user");
-
-        if (result.hasErrors()) {
-            return "user_form_unauth";
-        }
-        if (!user.getPassword().equals(user.getMatchingPassword())) {
-            result.rejectValue("password", "", "Password not matching");
-            return "user_form_unauth";
-        }
-
-        logger.info("Updating user with id {}", user.getId());
-        Set<Role> roles = new HashSet<>();
-        roles.add(roleRepository.findRoleByName("ROLE_GUEST").orElse(new Role("ROLE_GUEST")));
-        user.setRoles(roles);
-        userService.save(user);
-        return "redirect:/product";
     }
 
     @Secured({"ROLE_SUPER_ADMIN"})

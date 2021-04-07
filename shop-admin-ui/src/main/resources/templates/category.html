@@ -19,7 +19,7 @@
             <div class="card-body">
                 <div class="container">
                     <div class="row py-2">
-                        <div sec:authorize="hasRole('ADMIN')" class="col-12">
+                        <div class="col-12">
                             <a class="btn btn-primary" th:href="@{/category/new}">Добавить Категорию</a>
                         </div>
 
@@ -37,9 +37,9 @@
                                     <td th:text="${category.id}">1</td>
                                     <td th:text="${category.name}">Guest</td>
                                     <td>
-                                        <a sec:authorize="hasRole('ADMIN')" class="btn btn-success"
+                                        <a class="btn btn-success"
                                            th:href="@{/category/{id}(id = ${category.id})}"><i class="fas fa-edit"></i></a>
-                                        <form sec:authorize="hasRole('ADMIN')"
+                                        <form
                                               class="d-inline" th:method="delete" th:action="@{/category/{id}(id = ${category.id})}">
                                             <button type="submit" class="btn btn-danger"><i
                                                     class="far fa-trash-alt"></i></button>
