@@ -1,13 +1,12 @@
 package com.porejemplo.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import com.porejemplo.persist.model.Picture;
 import com.porejemplo.persist.model.PictureData;
 import com.porejemplo.persist.model.Product;
 import com.porejemplo.persist.repo.PictureRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
@@ -23,16 +22,12 @@ public class PictureServiceBlobImpl implements PictureService {
 
     @Override
     public Optional<String> getPictureContentTypeById(long id) {
-        return repository.findById(id)
-                .filter(pic -> pic.getPictureData().getData() != null)
-                .map(Picture::getContentType);
+        return repository.getContentTypeForBlob(id);
     }
-
+    
     @Override
     public Optional<byte[]> getPictureDataById(long id) {
-        return repository.findById(id)
-                .filter(pic -> pic.getPictureData().getData() != null)
-                .map(pic -> pic.getPictureData().getData());
+        return repository.getDataForBlob(id);
     }
 
     @Override

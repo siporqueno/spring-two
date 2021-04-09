@@ -38,30 +38,24 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Page<UserRepr> findWithFilter(String usernameFilter, Integer minAge, Integer maxAge,
-                                         Integer page, Integer size, String sortField) {
+    public Page<UserRepr> findWithFilter(String loginFilter, Integer page, Integer size, String sortField) {
         Specification<User> spec = Specification.where(null);
-        if (usernameFilter != null && !usernameFilter.isBlank()) {
-            spec = spec.and(UserSpecification.usernameLike(usernameFilter));
+        if (loginFilter != null && !loginFilter.isBlank()) {
+            spec = spec.and(UserSpecification.loginLike(loginFilter));
         }
-        if (minAge != null) {
-            spec = spec.and(UserSpecification.minAge(minAge));
-        }
-        if (maxAge != null) {
-            spec = spec.and(UserSpecification.maxAge(maxAge));
-        }
+
         if (sortField != null && !sortField.isBlank()) {
             return userRepository.findAll(spec, PageRequest.of(page, size, Sort.by(sortField)))
-                    .map(UserRepr::new);
+                    .map(UserServiceImpl::mapToReprWithoutRoles);
         }
         return userRepository.findAll(spec, PageRequest.of(page, size))
-                .map(UserRepr::new);
+                .map(UserServiceImpl::mapToReprWithoutRoles);
     }
 
     @Transactional
     @Override
     public Optional<UserRepr> findById(long id) {
-       return userRepository.findById(id)
+        return userRepository.findById(id)
                 .map(UserRepr::new);
     }
 
@@ -80,5 +74,11 @@ public class UserServiceImpl implements UserService {
     @Override
     public void delete(long id) {
         userRepository.deleteById(id);
+    }
+
+    private static UserRepr mapToReprWithoutRoles(User u) {
+        return new UserRepr(
+                u.getId(),
+                u.getLogin());
     }
 }

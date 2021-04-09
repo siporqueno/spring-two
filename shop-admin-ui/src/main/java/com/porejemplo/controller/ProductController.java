@@ -39,27 +39,10 @@ public class ProductController {
     }
 
     @GetMapping
-    public String listPage(Model model,
-                           @RequestParam("titleFilter") Optional<String> titleFilter,
-                           @RequestParam("minPrice") Optional<BigDecimal> minPrice,
-                           @RequestParam("maxPrice") Optional<BigDecimal> maxPrice,
-                           @RequestParam("page") Optional<Integer> page,
-                           @RequestParam("size") Optional<Integer> size,
-                           @RequestParam("sortField") Optional<String> sortField) {
+    public String listPage(Model model) {
         logger.info("List page requested");
 
-        Page<ProductRepr> products = productService.findWithFilter(
-                titleFilter.orElse(null),
-                minPrice.orElse(null),
-                maxPrice.orElse(null),
-                page.orElse(1) - 1,
-                size.orElse(3),
-                sortField.orElse(null)
-        );
-
-        model.addAttribute("products", products);
-        model.addAttribute("previousPageNumber", products.previousOrFirstPageable().getPageNumber() + 1);
-        model.addAttribute("nextPageNumber", products.nextOrLastPageable().getPageNumber() + 1);
+        model.addAttribute("products", productService.findAll());
         return "product";
     }
 

@@ -37,18 +37,14 @@ public class UserController {
 
     @GetMapping
     public String listPage(Model model,
-                           @RequestParam("usernameFilter") Optional<String> usernameFilter,
-                           @RequestParam("ageMinFilter") Optional<Integer> ageMinFilter,
-                           @RequestParam("ageMaxFilter") Optional<Integer> ageMaxFilter,
+                           @RequestParam("loginFilter") Optional<String> loginFilter,
                            @RequestParam("page") Optional<Integer> page,
                            @RequestParam("size") Optional<Integer> size,
                            @RequestParam("sortField") Optional<String> sortField) {
         logger.info("List page requested");
 
         Page<UserRepr> users = userService.findWithFilter(
-                usernameFilter.orElse(null),
-                ageMinFilter.orElse(null),
-                ageMaxFilter.orElse(null),
+                loginFilter.orElse(null),
                 page.orElse(1) - 1,
                 size.orElse(3),
                 sortField.orElse(null)

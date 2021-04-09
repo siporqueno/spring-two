@@ -27,10 +27,10 @@
                             <form class="form-inline" th:method="get">
 
                                 <div class="form-group mb-2 mr-2">
-                                    <label for="usernameFilter" class="sr-only">Username filter</label>
-                                    <input type="text" class="form-control" id="usernameFilter"
-                                           th:value="${param.usernameFilter}"
-                                           name="usernameFilter" placeholder="Username filter">
+                                    <label for="loginFilter" class="sr-only">Login filter</label>
+                                    <input type="text" class="form-control" id="loginFilter"
+                                           th:value="${param.loginFilter}"
+                                           name="loginFilter" placeholder="Login filter">
                                 </div>
 
                                 <button type="submit" class="btn btn-primary mb-2">Apply</button>
@@ -44,7 +44,7 @@
                                     <th scope="col"
                                         th:replace="fragments/sort_header :: sort_header_user ('Id', 'id')"/>
                                     <th scope="col"
-                                        th:replace="fragments/sort_header :: sort_header_user ('Username', 'username')"/>
+                                        th:replace="fragments/sort_header :: sort_header_user ('Login', 'Login')"/>
                                     <th sec:authorize="hasRole('SUPER_ADMIN')" scope="col">Actions</th>
                                 </tr>
                                 </thead>

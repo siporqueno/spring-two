@@ -42,7 +42,7 @@ public class ProductService implements ItemService<ProductRepr> {
     @Transactional
     @Override
     public List<ProductRepr> findAll() {
-        return productRepository.findAll().stream()
+        return productRepository.findAllWithPictureCategoryBrandFetch().stream()
                 .map(ProductRepr::new)
                 .collect(Collectors.toList());
     }
@@ -77,6 +77,7 @@ public class ProductService implements ItemService<ProductRepr> {
     public Optional<ProductRepr> findById(long id) {
         return productRepository.findById(id)
                 .map(ProductRepr::new);
+
     }
 
     @Transactional

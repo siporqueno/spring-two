@@ -10,8 +10,7 @@ public interface UserService {
 
     List<UserRepr> findAll();
 
-    Page<UserRepr> findWithFilter(String usernameFilter, Integer minAge, Integer maxAge,
-                                  Integer page, Integer size, String sortField);
+    Page<UserRepr> findWithFilter(String usernameFilter, Integer page, Integer size, String sortField);
 
     Optional<UserRepr> findById(long id);
 
