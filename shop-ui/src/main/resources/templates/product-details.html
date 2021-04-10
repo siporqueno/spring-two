@@ -90,17 +90,18 @@
                             <option>Select your size XL</option>
                         </select>
                     </div>
-                    <div class="quantity">
+                    <form class="quantity" th:method="post" th:action="@{/cart}">
+                        <input type="hidden" name="productId" th:value="${product.id}">
                         <div class="custom">
                             <button onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst ) &amp;&amp; sst > 0 ) result.value--;return false;"
                                     class="reduced items-count" type="button"><i class="icon_minus-06"></i></button>
-                            <input type="text" name="qty" id="sst" maxlength="12" value="01" title="Quantity:"
+                            <input type="text" name="qty" id="sst" maxlength="12" value="1" title="Quantity:"
                                    class="input-text qty">
                             <button onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst )) result.value++;return false;"
                                     class="increase items-count" type="button"><i class="icon_plus"></i></button>
                         </div>
-                        <a class="add_cart_btn" href="#">add to cart</a>
-                    </div>
+                        <button type="submit" class="add_cart_btn" href="#">add to cart</button>
+                    </form>
                     <div class="shareing_icon">
                         <h5>share :</h5>
                         <ul>
