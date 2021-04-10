@@ -1,6 +1,8 @@
 package com.porejemplo.controller;
 
 import com.porejemplo.error.NotFoundException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,9 +14,13 @@ import com.porejemplo.controller.repr.ProductRepr;
 import com.porejemplo.service.CartService;
 import com.porejemplo.service.ProductService;
 
+import java.math.BigDecimal;
+
 @Controller
 @RequestMapping("/cart")
 public class CartController {
+
+    private final static Logger logger = LoggerFactory.getLogger(CartController.class);
 
     public final CartService cartService;
 
@@ -29,6 +35,7 @@ public class CartController {
     @GetMapping
     public String mainPage(Model model) {
         model.addAttribute("lineItems", cartService.getLineItems());
+        model.addAttribute("subTotal", cartService.calculateCartSubTotal());
         return "shopping-cart";
     }
 
