@@ -34,7 +34,7 @@
                             <tr th:each="lineItem : ${lineItems}">
                                 <th scope="row">
                                     <form th:method="delete" th:action="@{/cart(productId=${lineItem.productId},
-                                    col=${lineItem.color}, mat=${lineItem.material})}">
+                                    qty=${lineItem.qty})}">
                                         <button type="submit"><img th:src="@{img/icon/close-icon.png}" alt=""></button>
                                     </form>
                                 </th>

@@ -47,10 +47,8 @@ public class CartController {
     }
 
     @DeleteMapping
-    public String removeLineItem(@RequestParam("productId") Long productId,
-                                 @RequestParam("col") String color,
-                                 @RequestParam("mat") String material) {
-        cartService.removeLineItem(new LineItem(productId, color, material));
+    public String removeLineItem(CartItemRepr cartItemRepr) {
+        cartService.removeLineItem(new LineItem(cartItemRepr.getProductId(), "", ""));
         return "redirect:/cart";
     }
 }
