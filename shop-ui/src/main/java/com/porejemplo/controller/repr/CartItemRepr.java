@@ -6,6 +6,8 @@ public class CartItemRepr {
 
     private Integer qty;
 
+    private String size;
+
     public Long getProductId() {
         return productId;
     }
@@ -20,5 +22,13 @@ public class CartItemRepr {
 
     public void setQty(Integer qty) {
         this.qty = qty;
+    }
+
+    public String getSize() {
+        return size;
+    }
+
+    public void setSize(String size) {
+        this.size = size;
     }
 }

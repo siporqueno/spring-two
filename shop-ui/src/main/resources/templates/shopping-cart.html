@@ -25,6 +25,7 @@
                                 <th scope="col"></th>
                                 <th scope="col">product</th>
                                 <th scope="col">price</th>
+                                <th scope="col">size</th>
                                 <th scope="col">quantity</th>
                                 <th scope="col">total</th>
                             </tr>
@@ -34,7 +35,7 @@
                             <tr th:each="lineItem : ${lineItems}">
                                 <th scope="row">
                                     <form th:method="delete" th:action="@{/cart(productId=${lineItem.productId},
-                                    qty=${lineItem.qty})}">
+                                    qty=${lineItem.qty}, size=${lineItem.size})}">
                                         <button type="submit"><img th:src="@{img/icon/close-icon.png}" alt=""></button>
                                     </form>
                                 </th>
@@ -50,6 +51,7 @@
                                     </div>
                                 </td>
                                 <td><p>$[[${lineItem.productRepr.price}]]</p></td>
+                                <td><p>[[${lineItem.size}]]</p></td>
                                 <td><input type="text" th:value="${lineItem.qty}"></td>
                                 <td><p>[[${lineItem.total}]]</p></td>
                             </tr>

@@ -42,13 +42,13 @@ public class CartController {
     public String addToCart(CartItemRepr cartItemRepr) {
         ProductRepr productRepr = productService.findById(cartItemRepr.getProductId())
                 .orElseThrow(NotFoundException::new);
-        cartService.addProductQty(productRepr, "", "", cartItemRepr.getQty());
+        cartService.addProductQty(productRepr, "", "", cartItemRepr.getSize(), cartItemRepr.getQty());
         return "redirect:/cart";
     }
 
     @DeleteMapping
     public String removeLineItem(CartItemRepr cartItemRepr) {
-        cartService.removeLineItem(new LineItem(cartItemRepr.getProductId(), "", ""));
+        cartService.removeLineItem(new LineItem(cartItemRepr.getProductId(), "", "", cartItemRepr.getSize()));
         return "redirect:/cart";
     }
 }

@@ -37,7 +37,7 @@
                             <li th:each="picId : ${product.pictureIds}"
                                 data-index="rs-137221490" data-transition="scaledownfrombottom" data-slotamount="7"
                                 data-easein="Power3.easeInOut" data-easeout="Power3.easeInOut" data-masterspeed="1500"
-                                 data-rotate="0"
+                                data-rotate="0"
                                 data-fstransition="fade" data-fsmasterspeed="1500" data-fsslotamount="7"
                                 data-saveperformance="off" data-title="Ishtar X Tussilago" data-param1="25/08/2015"
                                 data-description="">
@@ -84,13 +84,14 @@
                     </div>
                     <div class="p_color">
                         <h4 class="p_d_title">size <span>*</span></h4>
-                        <select class="selectpicker">
-                            <option>Select your size</option>
-                            <option>Select your size M</option>
-                            <option>Select your size XL</option>
+                        <select class="selectpicker" name="size" form="add_to_cart_form">
+                            <option value="S">Select your size S</option>
+                            <option value="M">Select your size M</option>
+                            <option value="L">Select your size L</option>
+                            <option value="XL">Select your size XL</option>
                         </select>
                     </div>
-                    <form class="quantity" th:method="post" th:action="@{/cart}">
+                    <form class="quantity" th:method="post" th:action="@{/cart}" id="add_to_cart_form">
                         <input type="hidden" name="productId" th:value="${product.id}">
                         <div class="custom">
                             <button onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst ) &amp;&amp; sst > 0 ) result.value--;return false;"
@@ -139,7 +140,7 @@
         <div class="tab-content" id="nav-tabContent">
             <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
                 <p th:text="${product.description}">Excepteur sint occaecat
-                 cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est
+                    cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est
                     laborum. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque
                     laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto
                     beatae vitae dicta sunt explicabo. Emo enim ipsam voluptatem quia voluptas sit aspernatur aut odit

@@ -24,14 +24,14 @@ public class CartServiceImpl implements CartService {
     private final Map<LineItem, Integer> lineItems = new ConcurrentHashMap<>();
 
     @Override
-    public void addProductQty(ProductRepr productRepr, String color, String material, int qty) {
-        LineItem lineItem = new LineItem(productRepr, color, material);
+    public void addProductQty(ProductRepr productRepr, String color, String material, String size, int qty) {
+        LineItem lineItem = new LineItem(productRepr, color, material, size);
         lineItems.put(lineItem, lineItems.getOrDefault(lineItem, 0) + qty);
     }
 
     @Override
-    public void removeProductQty(ProductRepr productRepr, String color, String material, int qty) {
-        LineItem lineItem = new LineItem(productRepr, color, material);
+    public void removeProductQty(ProductRepr productRepr, String color, String material, String size, int qty) {
+        LineItem lineItem = new LineItem(productRepr, color, material, size);
         int currentQty = lineItems.getOrDefault(lineItem, 0);
         if (currentQty - qty > 0) {
             lineItems.put(lineItem, currentQty - qty);

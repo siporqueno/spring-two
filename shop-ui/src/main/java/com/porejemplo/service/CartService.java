@@ -8,9 +8,9 @@ import java.util.List;
 
 public interface CartService {
 
-    void addProductQty(ProductRepr productRepr, String color, String material, int qty);
+    void addProductQty(ProductRepr productRepr, String color, String material, String size, int qty);
 
-    void removeProductQty(ProductRepr productRepr, String color, String material, int qty);
+    void removeProductQty(ProductRepr productRepr, String color, String material, String size, int qty);
 
     void removeLineItem(LineItem lineItem);
 

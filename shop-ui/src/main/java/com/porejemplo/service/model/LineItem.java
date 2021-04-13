@@ -19,20 +19,24 @@ public class LineItem implements Serializable {
 
     private String material;
 
-    public LineItem(ProductRepr productRepr, String color, String material) {
+    private String size;
+
+    public LineItem(ProductRepr productRepr, String color, String material, String size) {
         this.productId = productRepr.getId();
         this.productRepr = productRepr;
         this.color = color;
         this.material = material;
+        this.size = size;
     }
 
     public LineItem() {
     }
 
-    public LineItem(Long productId, String color, String material) {
+    public LineItem(Long productId, String color, String material, String size) {
         this.productId = productId;
         this.color = color;
         this.material = material;
+        this.size = size;
     }
 
     public Long getProductId() {
@@ -75,6 +79,14 @@ public class LineItem implements Serializable {
         this.material = material;
     }
 
+    public String getSize() {
+        return size;
+    }
+
+    public void setSize(String size) {
+        this.size = size;
+    }
+
     @JsonIgnore
     public BigDecimal getTotal() {
         return productRepr.getPrice().multiply(new BigDecimal(qty));
@@ -87,11 +99,12 @@ public class LineItem implements Serializable {
         LineItem lineItem = (LineItem) o;
         return productId.equals(lineItem.productId) &&
                 Objects.equals(color, lineItem.color) &&
-                Objects.equals(material, lineItem.material);
+                Objects.equals(material, lineItem.material) &&
+                Objects.equals(size, lineItem.size);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(productId, color, material);
+        return Objects.hash(productId, color, material, size);
     }
 }
