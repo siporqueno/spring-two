@@ -10,4 +10,6 @@ public interface ProductService {
     List<ProductRepr> findAll();
 
     Optional<ProductRepr> findById(Long id);
+
+    List<ProductRepr> findByFilter(Long categoryId);
 }

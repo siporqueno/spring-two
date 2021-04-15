@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @RequestMapping
@@ -34,12 +35,13 @@ public class ProductController {
     }
 
     @GetMapping("/")
-    public String productListPage(Model model) {
+    public String productListPage(@RequestParam(value = "categoryId", required = false) Long categoryId, Model model) {
         logger.info("Product list page");
 
-        model.addAttribute("products", productService.findAll());
+        model.addAttribute("products", productService.findByFilter(categoryId));
         model.addAttribute("categories", categoryRepository.findAll());
         model.addAttribute("brands", brandRepository.findAll());
+
         return "categories-left-sidebar";
     }
 

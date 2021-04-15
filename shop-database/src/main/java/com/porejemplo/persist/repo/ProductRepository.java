@@ -7,16 +7,16 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
-
-
-//        "milk","3.2%",  50
-//        "cheese","Gauda", 200
-//        "meat", "pork",500
+import java.util.Optional;
 
 @Repository
 public interface ProductRepository extends JpaRepository<Product, Long>, JpaSpecificationExecutor<Product> {
 
-    @Query("select p from Product p left join fetch p.pictures")
-    List<Product> findAllWithPictureFetch();
+    @Query("select distinct p " +
+            "from Product p " +
+            "left join fetch p.pictures " +
+            "inner join fetch p.category " +
+            "inner join fetch p.brand")
+    List<Product> findAllWithPictureCategoryBrandFetch();
 
 }

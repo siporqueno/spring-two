@@ -9,30 +9,10 @@
         <ul class="navbar-nav">
 
             <li th:each="cat : ${categories}" class="nav-item">
-                <a class="nav-link" th:text="${cat.name}" href="#">Men’s Fashion
+                <a class="nav-link" th:text="${cat.name}" th:href="@{/(categoryId=${cat.id})}">Men’s Fashion
                     <i class="icon_plus" aria-hidden="true"></i>
                     <i class="icon_minus-06" aria-hidden="true"></i>
                 </a>
-            </li>
-
-            <li class="nav-item">
-                <a class="nav-link" href="#">Men’s Fashion
-                    <i class="icon_plus" aria-hidden="true"></i>
-                    <i class="icon_minus-06" aria-hidden="true"></i>
-                </a>
-            </li>
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Women’s Fashion
-                    <i class="icon_plus" aria-hidden="true"></i>
-                    <i class="icon_minus-06" aria-hidden="true"></i>
-                </a>
-                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <li class="nav-item"><a class="nav-link" href="#">Hoodies & Sweatshirts</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">Jackets & Coats</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">Blouses & Shirts</a></li>
-                </ul>
             </li>
 
         </ul>

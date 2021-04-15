@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <link rel="icon" th:href="@{/img/fav-icon.png}" type="image/x-icon" />
+    <link rel="icon" th:href="@{/img/fav-icon.png}" type="image/x-icon"/>
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <title>Persuit</title>
 
@@ -79,7 +79,7 @@
     <div class="carousel_menu_inner">
         <div class="container">
             <nav class="navbar navbar-expand-lg navbar-light bg-light">
-                <a class="navbar-brand" href="#"><img src="img/logo.png" alt=""></a>
+                <a class="navbar-brand" href="#"><img th:src="@{img/logo.png}" alt=""></a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse"
                         data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
@@ -132,7 +132,7 @@
                                     Two Column</a></li>
                                 <li class="nav-item"><a class="nav-link" href="categories-no-sidebar-4column.html">Product
                                     Grid</a></li>
-                                <li class="nav-item"><a class="nav-link" href="categories-left-sidebar.html">Categories
+                                <li class="nav-item"><a class="nav-link" th:href="@{/}">Categories
                                     Left Sidebar</a></li>
                                 <li class="nav-item"><a class="nav-link" href="categories-right-sidebar.html">Categories
                                     Right Sidebar</a></li>
@@ -158,7 +158,7 @@
                     <ul class="navbar-nav justify-content-end">
                         <li class="search_icon"><a href="#"><i class="icon-magnifier icons"></i></a></li>
                         <li class="user_icon"><a href="#"><i class="icon-user icons"></i></a></li>
-                        <li class="cart_cart"><a href="#"><i class="icon-handbag icons"></i></a></li>
+                        <li class="cart_cart"><a th:href="@{/cart}"><i class="icon-handbag icons"></i></a></li>
                     </ul>
                 </div>
             </nav>

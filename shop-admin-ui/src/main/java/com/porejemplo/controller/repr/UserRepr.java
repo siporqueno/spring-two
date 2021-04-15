@@ -8,6 +8,7 @@ import javax.validation.constraints.NotEmpty;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 // DTO
 public class UserRepr {
@@ -42,6 +43,11 @@ public class UserRepr {
     public UserRepr(Role role) {
         this.roles = new HashSet<>();
         this.roles.add(role);
+    }
+
+    public UserRepr(Long id, @NotEmpty String login) {
+        this.id = id;
+        this.login = login;
     }
 
     public Long getId() {

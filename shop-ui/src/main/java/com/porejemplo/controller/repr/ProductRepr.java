@@ -1,12 +1,8 @@
 package com.porejemplo.controller.repr;
 
-import com.porejemplo.persist.model.Picture;
-import com.porejemplo.persist.model.Product;
-
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class ProductRepr implements Serializable {
 
@@ -22,20 +18,22 @@ public class ProductRepr implements Serializable {
 
     private String brand;
 
+    private Long pictureId;
+
     private List<Long> pictureIds;
 
     public ProductRepr() {
     }
 
-    public ProductRepr(Product product) {
-        this.id = product.getId();
-        this.title = product.getTitle();
-        this.price = product.getPrice();
-        this.description = product.getDescription();
-        this.category = product.getCategory().getName();
-        this.brand = product.getBrand().getName();
-        this.pictureIds = product.getPictures().stream()
-                .map(Picture::getId).collect(Collectors.toList());
+    public ProductRepr(Long id, String title, String description, BigDecimal price, String category, String brand, Long pictureId, List<Long> pictureIds) {
+        this.id = id;
+        this.title = title;
+        this.description = description;
+        this.price = price;
+        this.category = category;
+        this.brand = brand;
+        this.pictureId = pictureId;
+        this.pictureIds = pictureIds;
     }
 
     public Long getId() {
@@ -84,6 +82,14 @@ public class ProductRepr implements Serializable {
 
     public void setBrand(String brand) {
         this.brand = brand;
+    }
+
+    public Long getPictureId() {
+        return pictureId;
+    }
+
+    public void setPictureId(Long pictureId) {
+        this.pictureId = pictureId;
     }
 
     public List<Long> getPictureIds() {
