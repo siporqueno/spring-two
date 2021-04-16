@@ -14,6 +14,7 @@ import com.porejemplo.service.CartService;
 import com.porejemplo.service.ProductService;
 
 import java.math.BigDecimal;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/cart")
@@ -49,6 +50,13 @@ public class CartController {
     @DeleteMapping
     public String removeLineItem(CartItemRepr cartItemRepr) {
         cartService.removeLineItem(new LineItem(cartItemRepr.getProductId(), "", "", cartItemRepr.getSize()));
+        return "redirect:/cart";
+    }
+
+    @PostMapping("/update_all_qty")
+    public String updateAllQty(@RequestParam Map<String, String > paramMap) {
+        logger.info("Product Qty Map: {}", paramMap);
+        cartService.updateAllQty(paramMap);
         return "redirect:/cart";
     }
 }

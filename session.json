@@ -1,0 +1,36 @@
+{
+  "@class": "com.porejemplo.service.CartServiceImpl",
+  "lineItems": [
+    "java.util.ArrayList",
+    [
+      {
+        "@class": "com.porejemplo.service.model.LineItem",
+        "productId": 1,
+        "productRepr": {
+          "@class": "com.porejemplo.controller.repr.ProductRepr",
+          "id": 1,
+          "title": "Denim shirt",
+          "description": "Dark denim shirt",
+          "price": [
+            "java.math.BigDecimal",
+            120.00
+          ],
+          "category": "Menxe2x80x99s Fashion",
+          "brand": "Brand 1",
+          "pictureId": 2,
+          "pictureIds": [
+            "java.util.ArrayList",
+            [
+              2,
+              3
+            ]
+          ]
+        },
+        "qty": 2,
+        "color": "",
+        "material": "",
+        "size": "M"
+      }
+    ]
+  ]
+}

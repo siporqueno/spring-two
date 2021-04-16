@@ -5,6 +5,7 @@ import com.porejemplo.service.model.LineItem;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Map;
 
 public interface CartService {
 
@@ -17,4 +18,6 @@ public interface CartService {
     List<LineItem> getLineItems();
 
     BigDecimal calculateCartSubTotal();
+
+    void updateAllQty(Map<String, String> paramMap);
 }

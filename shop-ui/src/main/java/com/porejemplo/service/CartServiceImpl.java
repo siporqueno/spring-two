@@ -69,4 +69,17 @@ public class CartServiceImpl implements CartService {
     public BigDecimal calculateCartSubTotal() {
         return lineItems.keySet().stream().map(LineItem::getTotal).reduce(BigDecimal.ZERO, BigDecimal::add);
     }
+
+    @Override
+    public void updateAllQty(Map<String, String> paramMap) {
+        paramMap.entrySet().forEach(paramItem -> {
+            String[] params = paramItem.getKey().split("_");
+            Long productId = Long.valueOf(params[0]);
+            String size = params[1];
+            Integer qty = Integer.parseInt(paramItem.getValue());
+            LineItem lineItemToUpdate = new LineItem(productId, "", "", size);
+            if (qty > 0) lineItems.put(lineItemToUpdate, qty);
+            else lineItems.remove(lineItemToUpdate);
+        });
+    }
 }
