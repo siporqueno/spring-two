@@ -47,7 +47,7 @@ public class CartController {
         return "redirect:/cart";
     }
 
-    @DeleteMapping
+    @GetMapping("/remove")
     public String removeLineItem(CartItemRepr cartItemRepr) {
         cartService.removeLineItem(new LineItem(cartItemRepr.getProductId(), "", "", cartItemRepr.getSize()));
         return "redirect:/cart";

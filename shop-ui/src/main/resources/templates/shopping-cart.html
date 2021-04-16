@@ -35,7 +35,8 @@
 
                                 <tr th:each="lineItem : ${lineItems}">
                                     <td scope="row">
-                                        <img th:src="@{img/icon/close-icon.png}" alt="">
+                                        <a th:href="@{/cart/remove(productId=${lineItem.productId}, qty=${lineItem.qty},
+                                        size=${lineItem.size})}"><img th:src="@{img/icon/close-icon.png}" alt=""></a>
                                     </td>
                                     <td>
                                         <div class="media">
