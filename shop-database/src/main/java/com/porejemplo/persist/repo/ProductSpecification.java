@@ -30,8 +30,12 @@ public class ProductSpecification {
 
     public static Specification<Product> fetchPictures() {
         return (root, query, builder) -> {
-            root.fetch("pictures", JoinType.LEFT);
-            query.distinct(true);
+            // Don't do fetch in case of count() query for pagination
+            if (query.getResultType() != Long.class && query.getResultType() != long.class) {
+                root.fetch("pictures", JoinType.LEFT);
+                root.fetch("brand", JoinType.LEFT);
+                query.distinct(true);
+            }
             return builder.isTrue(builder.literal(true));
         };
     }

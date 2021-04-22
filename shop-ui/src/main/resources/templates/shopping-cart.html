@@ -19,45 +19,46 @@
                 <div class="cart_product_list">
                     <h3 class="cart_single_title">Discount Coupon</h3>
                     <div class="table-responsive-md">
-                        <table class="table">
-                            <thead>
-                            <tr>
-                                <th scope="col"></th>
-                                <th scope="col">product</th>
-                                <th scope="col">price</th>
-                                <th scope="col">size</th>
-                                <th scope="col">quantity</th>
-                                <th scope="col">total</th>
-                            </tr>
-                            </thead>
-                            <tbody>
+                        <form id="cartItemsForm" th:method="post" th:action="@{/cart/update_all_qty}">
+                            <table class="table">
+                                <thead>
+                                <tr>
+                                    <th scope="col"></th>
+                                    <th scope="col">product</th>
+                                    <th scope="col">price</th>
+                                    <th scope="col">size</th>
+                                    <th scope="col">quantity</th>
+                                    <th scope="col">total</th>
+                                </tr>
+                                </thead>
+                                <tbody>
 
-                            <tr th:each="lineItem : ${lineItems}">
-                                <th scope="row">
-                                    <form th:method="delete" th:action="@{/cart(productId=${lineItem.productId},
-                                    qty=${lineItem.qty}, size=${lineItem.size})}">
-                                        <button type="submit"><img th:src="@{img/icon/close-icon.png}" alt=""></button>
-                                    </form>
-                                </th>
-                                <td>
-                                    <div class="media">
-                                        <div class="d-flex">
-                                            <img th:src="@{/picture/{id}(id = ${lineItem.productRepr.pictureId})}"
-                                                 alt="">
+                                <tr th:each="lineItem : ${lineItems}">
+                                    <td scope="row">
+                                        <a th:href="@{/cart/remove(productId=${lineItem.productId}, qty=${lineItem.qty},
+                                        size=${lineItem.size})}"><img th:src="@{img/icon/close-icon.png}" alt=""></a>
+                                    </td>
+                                    <td>
+                                        <div class="media">
+                                            <div class="d-flex">
+                                                <img th:src="@{/picture/{id}(id = ${lineItem.productRepr.pictureId})}"
+                                                     alt="">
+                                            </div>
+                                            <div class="media-body">
+                                                <h4>[[${lineItem.productRepr.title}]]</h4>
+                                            </div>
                                         </div>
-                                        <div class="media-body">
-                                            <h4>[[${lineItem.productRepr.title}]]</h4>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td><p>$[[${lineItem.productRepr.price}]]</p></td>
-                                <td><p>[[${lineItem.size}]]</p></td>
-                                <td><input type="text" th:value="${lineItem.qty}"></td>
-                                <td><p>[[${lineItem.total}]]</p></td>
-                            </tr>
+                                    </td>
+                                    <td><p>$[[${lineItem.productRepr.price}]]</p></td>
+                                    <td><p>[[${lineItem.size}]]</p></td>
+                                    <td><input type="text" th:name="${lineItem.productId+'_'+lineItem.size}"
+                                               th:value="${lineItem.qty}"></td>
+                                    <td><p>[[${lineItem.total}]]</p></td>
+                                </tr>
 
-                            </tbody>
-                        </table>
+                                </tbody>
+                            </table>
+                        </form>
                     </div>
                 </div>
                 <div class="calculate_shoping_area">
@@ -106,7 +107,8 @@
                                 <li><a href="#"><span>Totals</span> $[[${subTotal}]]</a></li>
                             </ul>
                         </div>
-                        <button type="submit" class="btn btn-primary update_btn">update cart</button>
+                        <button type="submit" form="cartItemsForm" class="btn btn-primary update_btn">update cart
+                        </button>
                         <button type="submit" class="btn btn-primary checkout_btn">proceed to checkout</button>
                     </div>
                 </div>

@@ -6,6 +6,9 @@ import com.porejemplo.persist.model.Product;
 import com.porejemplo.persist.repo.ProductRepository;
 import com.porejemplo.persist.repo.ProductSpecification;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
@@ -37,14 +40,18 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List<ProductRepr> findByFilter(Long categoryId) {
-        Specification<Product> spec = ProductSpecification.fetchPictures();
+    public Page<ProductRepr> findByFilter(Long categoryId, Integer page, Integer size) {
+        Specification<Product> spec = Specification.where(null); // ProductSpecification.fetchPictures();
         if (categoryId != null) {
             spec = spec.and(ProductSpecification.byCategory(categoryId));
         }
-        return productRepository.findAll(spec).stream()
+        Page<Long> ids = productRepository.findAll(spec, PageRequest.of(page - 1, size))
+                .map(Product::getId);
+
+        List<ProductRepr> allByIds = productRepository.findAllByIds(ids.getContent()).stream()
                 .map(ProductServiceImpl::mapToRepr)
                 .collect(Collectors.toList());
+        return new PageImpl<>(allByIds, PageRequest.of(page - 1, size), ids.getTotalElements());
     }
 
     private static ProductRepr mapToRepr(Product p) {
