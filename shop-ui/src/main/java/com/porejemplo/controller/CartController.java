@@ -38,7 +38,7 @@ public class CartController {
     public String mainPage(Model model) {
         model.addAttribute("lineItems", cartService.getLineItems());
         model.addAttribute("subTotal", cartService.calculateCartSubTotal());
-        return "shopping-cart";
+        return "shopping_cart";
     }
 
     @PostMapping
@@ -55,10 +55,15 @@ public class CartController {
         return "redirect:/cart";
     }
 
-    @PostMapping("/update_all_qty")
+    @PostMapping("/update-all-qty")
     public String updateAllQty(@RequestParam Map<String, String > paramMap) {
         logger.info("Product Qty Map: {}", paramMap);
         cartService.updateAllQty(paramMap);
         return "redirect:/cart";
+    }
+
+    @GetMapping("/proceed-to-checkout")
+    public String proceedToCheckout(){
+        return "checkout";
     }
 }
