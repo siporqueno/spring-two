@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.security.Principal;
 import java.util.Map;
 
 @Controller
@@ -56,14 +57,19 @@ public class CartController {
     }
 
     @PostMapping("/update-all-qty")
-    public String updateAllQty(@RequestParam Map<String, String > paramMap) {
+    public String updateAllQty(@RequestParam Map<String, String> paramMap) {
         logger.info("Product Qty Map: {}", paramMap);
         cartService.updateAllQty(paramMap);
         return "redirect:/cart";
     }
 
     @GetMapping("/proceed-to-checkout")
-    public String proceedToCheckout(){
+    public String proceedToCheckout(Principal principal) {
+
+        if (principal != null) {
+            return "redirect:/order";
+        }
+
         return "checkout";
     }
 }

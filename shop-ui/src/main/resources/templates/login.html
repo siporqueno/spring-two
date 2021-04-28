@@ -33,14 +33,14 @@
                 <div class="col-lg-4">
                     <div class="login_title">
                         <h2>log in your account</h2>
-                        <p>Log in to your account to discovery all great features in this template.</p>
+                        <p>Log in to your account to discover all great features of this shop.</p>
                     </div>
-                    <form class="login_form row">
+                    <form class="login_form row" th:action="@{/login}" th:method="post">
                         <div class="col-lg-12 form-group">
-                            <input class="form-control" type="text" placeholder="Name">
+                            <input class="form-control" type="text" name="username" placeholder="Username/Login">
                         </div>
                         <div class="col-lg-12 form-group">
-                            <input class="form-control" type="text" placeholder="User Name">
+                            <input class="form-control" type="password" name="password" placeholder="Password">
                         </div>
                         <div class="col-lg-12 form-group">
                             <div class="creat_account">
@@ -58,7 +58,8 @@
                 <div class="col-lg-8">
                     <div class="login_title">
                         <h2>create account</h2>
-                        <p>Follow the steps below to register. Enjoy the greatest and fastest ever shopping experience.</p>
+                        <p>Follow the steps below to register. Enjoy the greatest and fastest ever shopping
+                            experience.</p>
                     </div>
                     <form class="login_form row">
                         <div class="col-lg-6 form-group">
