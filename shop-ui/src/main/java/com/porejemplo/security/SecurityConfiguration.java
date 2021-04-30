@@ -49,7 +49,10 @@ public class SecurityConfiguration {
                     .and()
                     .logout()
                     .logoutSuccessUrl("/")
-                    .permitAll();
+                    .permitAll()
+                    .and()
+                    .csrf()
+                    .disable();
         }
     }
 }
