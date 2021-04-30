@@ -154,10 +154,12 @@
                         <h2 class="reg_title">Your Order</h2>
                         <div class="payment_list">
                             <div class="price_single_cost">
-                                <h5>Mens Casual Shirt <span>$25.20</span></h5>
-                                <h5>Mens Casual Shirt <span>$25.20</span></h5>
-                                <h4>Cart Subtotal <span>$50.00</span></h4>
-                                <h3><span class="normal_text">Order Totals</span> <span>$50.00</span></h3>
+                                <h5 th:each="cartItem : ${cartItems}">
+                                    [[${cartItem.qty + ' X ' + cartItem.productRepr.title + ' (' + cartItem.size + ')'}]]
+                                    <span>$[[${cartItem.total}]]</span>
+                                </h5>
+                                <h4>Cart Subtotal <span>$[[${subTotal}]]</span></h4>
+                                <h3><span class="normal_text">Order Totals</span> <span>$[[${subTotal}]]</span></h3>
                             </div>
                             <div id="accordion" role="tablist" class="price_method">
                                 <div class="card">
