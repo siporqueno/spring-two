@@ -1,9 +1,6 @@
 package com.porejemplo.service;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import com.fasterxml.jackson.annotation.*;
 import com.porejemplo.controller.repr.ProductRepr;
 import com.porejemplo.service.model.LineItem;
 import org.slf4j.Logger;
@@ -25,6 +22,7 @@ import java.util.stream.Collectors;
 @JsonTypeInfo(use = JsonTypeInfo.Id.CLASS)
 public class CartServiceImpl implements CartService, Serializable {
 
+    @JsonIgnore
     private final static Logger logger = LoggerFactory.getLogger(CartServiceImpl.class);
 
     private final Map<LineItem, Integer> lineItems;
@@ -38,12 +36,14 @@ public class CartServiceImpl implements CartService, Serializable {
         this.lineItems = lineItems.stream().collect(Collectors.toMap(li -> li, LineItem::getQty));
     }
 
+    @JsonIgnore
     @Override
     public void addProductQty(ProductRepr productRepr, String color, String material, String size, int qty) {
         LineItem lineItem = new LineItem(productRepr, color, material, size);
         lineItems.put(lineItem, lineItems.getOrDefault(lineItem, 0) + qty);
     }
 
+    @JsonIgnore
     @Override
     public void removeProductQty(ProductRepr productRepr, String color, String material, String size, int qty) {
         LineItem lineItem = new LineItem(productRepr, color, material, size);
@@ -55,11 +55,13 @@ public class CartServiceImpl implements CartService, Serializable {
         }
     }
 
+    @JsonIgnore
     @Override
     public void removeLineItem(LineItem lineItem) {
         lineItems.remove(lineItem);
     }
 
+    @JsonGetter
     @Override
     public List<LineItem> getLineItems() {
         lineItems.forEach(LineItem::setQty);
@@ -72,6 +74,7 @@ public class CartServiceImpl implements CartService, Serializable {
         return lineItems.keySet().stream().map(LineItem::getTotal).reduce(BigDecimal.ZERO, BigDecimal::add);
     }
 
+    @JsonIgnore
     @Override
     public void updateAllQty(Map<String, String> paramMap) {
         paramMap.entrySet().forEach(paramItem -> {
