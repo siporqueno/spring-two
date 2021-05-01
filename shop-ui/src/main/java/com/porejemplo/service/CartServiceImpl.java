@@ -3,6 +3,7 @@ package com.porejemplo.service;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.porejemplo.controller.repr.ProductRepr;
 import com.porejemplo.service.model.LineItem;
 import org.slf4j.Logger;
@@ -11,6 +12,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.stereotype.Service;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
@@ -20,7 +22,8 @@ import java.util.stream.Collectors;
 
 @Service
 @Scope(scopeName = "session", proxyMode = ScopedProxyMode.TARGET_CLASS)
-public class CartServiceImpl implements CartService {
+@JsonTypeInfo(use = JsonTypeInfo.Id.CLASS)
+public class CartServiceImpl implements CartService, Serializable {
 
     private final static Logger logger = LoggerFactory.getLogger(CartServiceImpl.class);
 
