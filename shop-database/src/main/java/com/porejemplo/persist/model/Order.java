@@ -68,6 +68,6 @@ public class Order {
     public void addOrderItem(OrderItem orderItem) {
         orderItems.add(orderItem);
         orderItem.setOrder(this);
-        orderValue.add(orderItem.getTotal());
+        orderValue = orderValue.add(orderItem.getTotal());
     }
 }
