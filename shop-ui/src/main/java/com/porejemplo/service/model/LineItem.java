@@ -2,6 +2,8 @@ package com.porejemplo.service.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.porejemplo.controller.repr.ProductRepr;
+import com.porejemplo.persist.model.OrderItem;
+import com.porejemplo.persist.model.Product;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -107,4 +109,5 @@ public class LineItem implements Serializable {
     public int hashCode() {
         return Objects.hash(productId, color, material, size);
     }
+
 }

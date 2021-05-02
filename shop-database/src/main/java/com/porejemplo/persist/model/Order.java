@@ -1,15 +1,17 @@
 package com.porejemplo.persist.model;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name="orders")
+@Table(name = "orders")
 public class Order {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="id")
+    @Column(name = "id")
     private Long id;
 
     @ManyToOne
@@ -19,13 +21,16 @@ public class Order {
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
     private List<OrderItem> orderItems;
 
+    @Column(name = "order_value")
+    private BigDecimal orderValue;
+
     public Order() {
     }
 
-    public Order(Long id, User user, List<OrderItem> orderItems) {
-        this.id = id;
+    public Order(User user) {
         this.user = user;
-        this.orderItems = orderItems;
+        this.orderItems = new ArrayList<>();
+        this.orderValue = new BigDecimal(0);
     }
 
     public Long getId() {
@@ -50,5 +55,19 @@ public class Order {
 
     public void setOrderItems(List<OrderItem> orderItems) {
         this.orderItems = orderItems;
+    }
+
+    public BigDecimal getOrderValue() {
+        return orderValue;
+    }
+
+    public void setOrderValue(BigDecimal orderValue) {
+        this.orderValue = orderValue;
+    }
+
+    public void addOrderItem(OrderItem orderItem) {
+        orderItems.add(orderItem);
+        orderItem.setOrder(this);
+        orderValue.add(orderItem.getTotal());
     }
 }

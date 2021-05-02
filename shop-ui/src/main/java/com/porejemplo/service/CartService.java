@@ -20,4 +20,6 @@ public interface CartService {
     BigDecimal calculateCartSubTotal();
 
     void updateAllQty(Map<String, String> paramMap);
+
+    void clearCart();
 }

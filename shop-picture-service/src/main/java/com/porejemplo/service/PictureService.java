@@ -1,8 +1,10 @@
 package com.porejemplo.service;
 
+import com.porejemplo.persist.model.Picture;
 import com.porejemplo.persist.model.PictureData;
 import com.porejemplo.persist.model.Product;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface PictureService {
@@ -16,4 +18,6 @@ public interface PictureService {
     Optional<Product> getProductByPictureId(long id);
 
     void removePicture(long id);
+
+    List<Picture> findPicturesByIds(List<Long> pictureIds);
 }

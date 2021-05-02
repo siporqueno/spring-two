@@ -87,4 +87,9 @@ public class CartServiceImpl implements CartService, Serializable {
             else lineItems.remove(lineItemToUpdate);
         });
     }
+
+    @Override
+    public void clearCart() {
+        lineItems.clear();
+    }
 }

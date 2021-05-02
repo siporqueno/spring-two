@@ -67,7 +67,7 @@ public class CartController {
     public String proceedToCheckout(Principal principal) {
 
         if (principal != null) {
-            return "redirect:/order";
+            return "redirect:/order/draft";
         }
 
         return "checkout";

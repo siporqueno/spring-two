@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="fragments/header :: head">
+</head>
+
+<body>
+
+<!--================Menu Area =================-->
+<header th:replace="fragments/header :: header">
+</header>
+<!--================End Menu Area =================-->
+
+<!--================Orders List Area =================-->
+<h2>Current Orders</h2>
+
+<table>
+    <thead>
+    <tr>
+        <th>Order Id</th>
+        <th>Order Value</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="order : ${orders}">
+        <td th:text="${order.id}">1</td>
+        <td th:text="${order.orderValue}">$50</td>
+    </tr>
+    </tbody>
+</table>
+
+<!--================Orders List Area =================-->
+
+<!--================Footer Area =================-->
+<footer th:replace="fragments/footer :: footer"></footer>
+<!--================End Footer Area =================-->
+
+<script th:replace="fragments/footer :: scripts"></script>
+</body>
+</html>

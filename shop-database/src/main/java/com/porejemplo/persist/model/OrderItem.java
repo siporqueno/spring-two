@@ -35,8 +35,7 @@ public class OrderItem {
     public OrderItem() {
     }
 
-    public OrderItem(Long id, Product product, Order order, Integer qty, String color, String material, String size) {
-        this.id = id;
+    public OrderItem(Product product, Order order, Integer qty, String color, String material, String size) {
         this.product = product;
         this.order = order;
         this.qty = qty;
