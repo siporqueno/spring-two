@@ -11,25 +11,36 @@
 </header>
 <!--================End Menu Area =================-->
 
-<!--================Orders List Area =================-->
-<h2>Current Orders</h2>
+<!--================Second Orders List Area =================-->
+<section>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8">
+                <div>
+                    <h2 class="cart_single_title">Current Orders</h2>
+                    <div class="table-responsive-md">
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th scope="col">Order Id</th>
+                                <th scope="col">Order Value</th>
+                            </tr>
+                            </thead>
+                            <tbody>
 
-<table>
-    <thead>
-    <tr>
-        <th>Order Id</th>
-        <th>Order Value</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="order : ${orders}">
-        <td th:text="${order.id}">1</td>
-        <td th:text="${order.orderValue}">$50</td>
-    </tr>
-    </tbody>
-</table>
-
-<!--================Orders List Area =================-->
+                            <tr th:each="order : ${orders}">
+                                <td><p>[[${order.id}]]</p></td>
+                                <td><p>$[[${order.orderValue}]]</p></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!--================Second Orders List Area =================-->
 
 <!--================Footer Area =================-->
 <footer th:replace="fragments/footer :: footer"></footer>
