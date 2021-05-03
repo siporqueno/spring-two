@@ -23,7 +23,6 @@ public class SessionConfig implements BeanClassLoaderAware {
 
     private ObjectMapper objectMapper() {
         ObjectMapper mapper = new ObjectMapper();
-        mapper.enableDefaultTyping();
         mapper.registerModules(SecurityJackson2Modules.getModules(this.loader));
         return mapper;
     }
