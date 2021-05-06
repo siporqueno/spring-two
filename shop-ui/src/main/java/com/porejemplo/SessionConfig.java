@@ -1,6 +1,8 @@
 package com.porejemplo;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.module.SimpleModule;
+import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import org.springframework.beans.factory.BeanClassLoaderAware;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -9,6 +11,8 @@ import org.springframework.data.redis.serializer.GenericJackson2JsonRedisSeriali
 import org.springframework.data.redis.serializer.RedisSerializer;
 import org.springframework.security.jackson2.SecurityJackson2Modules;
 import org.springframework.session.data.redis.config.annotation.web.http.EnableRedisHttpSession;
+
+import java.math.BigDecimal;
 
 @Profile("!dev")
 @Configuration
@@ -24,6 +28,11 @@ public class SessionConfig implements BeanClassLoaderAware {
     private ObjectMapper objectMapper() {
         ObjectMapper mapper = new ObjectMapper();
         mapper.registerModules(SecurityJackson2Modules.getModules(this.loader));
+
+        SimpleModule module = new SimpleModule();
+        module.addSerializer(BigDecimal.class, new ToStringSerializer());
+        mapper.registerModule(module);
+
         return mapper;
     }
 
