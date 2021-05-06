@@ -1,7 +1,9 @@
 package com.porejemplo.service;
 
-import com.fasterxml.jackson.annotation.*;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.porejemplo.controller.repr.ProductRepr;
 import com.porejemplo.service.model.LineItem;
 import org.slf4j.Logger;
@@ -18,7 +20,6 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
 
-@JsonSerialize
 @Service
 @Scope(scopeName = "session", proxyMode = ScopedProxyMode.TARGET_CLASS)
 public class CartServiceImpl implements CartService, Serializable {
@@ -26,10 +27,9 @@ public class CartServiceImpl implements CartService, Serializable {
     @JsonIgnore
     private final static Logger logger = LoggerFactory.getLogger(CartServiceImpl.class);
 
-    @JsonProperty
+    @JsonProperty("lineItems")
     private final Map<LineItem, Integer> lineItems;
 
-    @JsonIgnore
     public CartServiceImpl() {
         this.lineItems = new ConcurrentHashMap<>();
     }
