@@ -9,7 +9,7 @@ import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
 
-@JsonTypeInfo(use= JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY)
+@JsonTypeInfo(use= JsonTypeInfo.Id.CLASS)
 @JsonSubTypes({
         @JsonSubTypes.Type(value = CartServiceImpl.class, name="CartServiceImpl")
 })
