@@ -13,49 +13,45 @@
     <div th:replace="fragments/sidebar :: sidebar"></div>
 
     <div class="content p-4">
-        <h2 class="mb-4">Roles</h2>
+        <h2 class="mb-4">Orders</h2>
 
         <div class="card mb-4">
             <div class="card-body">
                 <div class="container">
                     <div class="row py-2">
-                        <div sec:authorize="hasRole('SUPER_ADMIN')" class="col-12">
-                            <a class="btn btn-primary" th:href="@{/role/new}">Добавить Роль</a>
-                        </div>
 
                         <div class="col-12">
                             <table class="table table-bordered my-2">
                                 <thead>
                                 <tr>
                                     <th>Id</th>
-                                    <th>Role</th>
+                                    <th>Login</th>
+                                    <th>Value</th>
                                     <th>Actions</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr th:unless="${roles.isEmpty()}" th:each="role : ${roles}">
-                                    <td th:text="${role.id}">1</td>
-                                    <td th:text="${role.name}">Guest</td>
+                                <tr th:unless="${orders.isEmpty()}" th:each="order : ${orders}">
+                                    <td th:text="${order.id}">1</td>
+                                    <td th:text="${order.user.login}">login</td>
+                                    <td th:text="${'$'+order.orderValue}">$50</td>
                                     <td>
-                                        <a sec:authorize="hasRole('SUPER_ADMIN')" class="btn btn-success"
-                                           th:href="@{/role/{id}(id = ${role.id})}"><i class="fas fa-edit"></i></a>
-                                        <form sec:authorize="hasRole('SUPER_ADMIN')"
-                                              class="d-inline" th:method="delete" th:action="@{/role/{id}(id = ${role.id})}">
+                                        <form
+                                                class="d-inline" th:method="delete"
+                                                th:action="@{/order/{id}(id = ${order.id})}">
                                             <button type="submit" class="btn btn-danger"><i
                                                     class="far fa-trash-alt"></i></button>
                                         </form>
                                     </td>
                                 </tr>
 
-                                <tr th:if="${roles.isEmpty()}">
+                                <tr th:if="${orders.isEmpty()}">
                                     <td colspan="4">No data</td>
                                 </tr>
 
                                 </tbody>
                             </table>
                         </div>
-
-
                     </div>
                 </div>
             </div>
