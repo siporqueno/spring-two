@@ -1,9 +1,12 @@
 package com.porejemplo.controller.repr;
 
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
+
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.List;
 
+@JsonTypeInfo(use = JsonTypeInfo.Id.CLASS)
 public class ProductRepr implements Serializable {
 
     private Long id;
