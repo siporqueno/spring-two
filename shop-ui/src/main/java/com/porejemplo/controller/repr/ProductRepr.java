@@ -1,6 +1,5 @@
 package com.porejemplo.controller.repr;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
 import java.io.Serializable;
@@ -16,7 +15,6 @@ public class ProductRepr implements Serializable {
 
     private String description;
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING)
     private BigDecimal price;
 
     private String category;
