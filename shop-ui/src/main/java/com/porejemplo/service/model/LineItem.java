@@ -1,14 +1,14 @@
 package com.porejemplo.service.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.porejemplo.controller.repr.ProductRepr;
-import com.porejemplo.persist.model.OrderItem;
-import com.porejemplo.persist.model.Product;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Objects;
 
+@JsonTypeInfo(use= JsonTypeInfo.Id.CLASS)
 public class LineItem implements Serializable {
 
     private Long productId;
