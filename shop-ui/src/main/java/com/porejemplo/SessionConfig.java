@@ -2,7 +2,6 @@ package com.porejemplo;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.porejemplo.controller.repr.JsonTypeInfoClassMixIn;
-import com.porejemplo.controller.repr.ProductRepr;
 import org.springframework.beans.factory.BeanClassLoaderAware;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -11,6 +10,8 @@ import org.springframework.data.redis.serializer.GenericJackson2JsonRedisSeriali
 import org.springframework.data.redis.serializer.RedisSerializer;
 import org.springframework.security.jackson2.SecurityJackson2Modules;
 import org.springframework.session.data.redis.config.annotation.web.http.EnableRedisHttpSession;
+
+import java.math.BigDecimal;
 
 @Profile("!dev")
 @Configuration
@@ -27,7 +28,7 @@ public class SessionConfig implements BeanClassLoaderAware {
         ObjectMapper mapper = new ObjectMapper();
         mapper.registerModules(SecurityJackson2Modules.getModules(this.loader));
 
-        mapper.addMixIn(ProductRepr.class, JsonTypeInfoClassMixIn.class);
+        mapper.addMixIn(BigDecimal.class, JsonTypeInfoClassMixIn.class);
 
         return mapper;
     }
