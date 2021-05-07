@@ -37,11 +37,11 @@ public class SecurityConfiguration {
         protected void configure(HttpSecurity http) throws Exception {
             http
                     .authorizeRequests()
-                    .antMatchers("/css/*").permitAll()
-                    .antMatchers("/js/*").permitAll()
+                    .antMatchers("/**/*.css").permitAll()
+                    .antMatchers("/**/*.js").permitAll()
                     .antMatchers("/webfonts/*").permitAll()
                     .antMatchers("/webjars/**").permitAll()
-                    .antMatchers("/**").hasAnyRole("ADMIN", "SUPER_ADMIN")
+                    .anyRequest().hasAnyRole("ADMIN", "SUPER_ADMIN")
                     .and()
                     .formLogin()
                     .loginPage("/login")
