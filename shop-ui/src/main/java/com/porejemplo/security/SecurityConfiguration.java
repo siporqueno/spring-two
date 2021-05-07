@@ -37,11 +37,14 @@ public class SecurityConfiguration {
         protected void configure(HttpSecurity http) throws Exception {
             http
                     .authorizeRequests()
-                    .antMatchers("/css/*").permitAll()
-                    .antMatchers("/js/*").permitAll()
-                    .antMatchers("/webfonts/*").permitAll()
+                    .antMatchers("/**/*.css").permitAll()
+                    .antMatchers("/**/*.js").permitAll()
+                    .antMatchers("/fonts/*").permitAll()
+                    .antMatchers("/img/**").permitAll()
+                    .antMatchers("/vendors/**").permitAll()
                     .antMatchers("/webjars/**").permitAll()
-                    .antMatchers("/**").permitAll()
+                    .antMatchers("/", "/product/**", "/cart/**", "/order/**", "/picture/**", "/gs-guide-websocket/**").permitAll()
+                    .anyRequest().authenticated()
                     .and()
                     .formLogin()
                     .loginPage("/login")
