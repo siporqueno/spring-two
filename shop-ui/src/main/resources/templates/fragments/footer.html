@@ -90,6 +90,10 @@
 </footer>
 
 <th:block th:fragment="scripts">
+    <div th:include="fragments/chat :: chat"/>
+
+    <script th:src="@{/webjars/sockjs-client/1.0.2/sockjs.min.js}"></script>
+    <script th:src="@{/webjars/stomp-websocket/2.3.3/stomp.min.js}"></script>
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script th:src="@{/js/jquery-3.2.1.min.js}"></script>
@@ -119,6 +123,8 @@
     <script th:src="@{/vendors/jquery-ui/jquery-ui.js}"></script>
 
     <script th:src="@{/js/theme.js}"></script>
+
+    <script th:src="@{/js/chat.js}"></script>
 
 </th:block>
 

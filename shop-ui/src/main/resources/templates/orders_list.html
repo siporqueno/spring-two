@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="fragments/header :: head">
+</head>
+
+<body>
+
+<!--================Menu Area =================-->
+<header th:replace="fragments/header :: header">
+</header>
+<!--================End Menu Area =================-->
+
+<!--================Second Orders List Area =================-->
+<section>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8">
+                <div>
+                    <h2 class="cart_single_title">Current Orders</h2>
+                    <div class="table-responsive-md">
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th scope="col">Order Id</th>
+                                <th scope="col">Order Value</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+
+                            <tr th:each="order : ${orders}">
+                                <td><p>[[${order.id}]]</p></td>
+                                <td><p>$[[${order.orderValue}]]</p></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!--================Second Orders List Area =================-->
+
+<!--================Footer Area =================-->
+<footer th:replace="fragments/footer :: footer"></footer>
+<!--================End Footer Area =================-->
+
+<script th:replace="fragments/footer :: scripts"></script>
+</body>
+</html>

@@ -6,7 +6,9 @@
 <body>
 
 <!--================Menu Area =================-->
-<header th:replace="fragments/header :: header"/>
+<header th:replace="fragments/header :: header">
+
+</header>
 <!--================End Menu Area =================-->
 
 <!--================Categories Banner Area =================-->
@@ -279,7 +281,7 @@
 <footer th:replace="fragments/footer :: footer"></footer>
 <!--================End Footer Area =================-->
 
-<th:block th:replace="fragments/footer.html :: scripts"/>
+<script th:replace="fragments/footer :: scripts"></script>
 
 </body>
 </html>

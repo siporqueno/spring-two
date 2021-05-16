@@ -11,7 +11,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 @EnableWebSecurity
-@EnableGlobalMethodSecurity(securedEnabled = true)
+//@EnableGlobalMethodSecurity(securedEnabled = true)
 public class SecurityConfiguration {
 
     @Autowired
@@ -31,7 +31,7 @@ public class SecurityConfiguration {
     }
 
     @Configuration
-    public static class AdminUiWebSecurityConfigurationAdapter extends WebSecurityConfigurerAdapter {
+    public static class UiWebSecurityConfigurationAdapter extends WebSecurityConfigurerAdapter {
 
         @Override
         protected void configure(HttpSecurity http) throws Exception {
@@ -39,16 +39,19 @@ public class SecurityConfiguration {
                     .authorizeRequests()
                     .antMatchers("/**/*.css").permitAll()
                     .antMatchers("/**/*.js").permitAll()
-                    .antMatchers("/webfonts/*").permitAll()
+                    .antMatchers("/fonts/*").permitAll()
+                    .antMatchers("/img/**").permitAll()
+                    .antMatchers("/vendors/**").permitAll()
                     .antMatchers("/webjars/**").permitAll()
-                    .anyRequest().hasAnyRole("ADMIN", "SUPER_ADMIN")
+                    .antMatchers("/", "/product/**", "/cart/**", "/order/**", "/picture/**", "/gs-guide-websocket/**").permitAll()
+                    .anyRequest().authenticated()
                     .and()
                     .formLogin()
                     .loginPage("/login")
                     .permitAll()
                     .and()
                     .logout()
-                    .logoutSuccessUrl("/login")
+                    .logoutSuccessUrl("/")
                     .permitAll();
         }
     }

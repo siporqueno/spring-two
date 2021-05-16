@@ -48,7 +48,7 @@ public class ProductController {
         return "categories-left-sidebar";
     }
 
-    @RequestMapping("/product/{id}")
+    @GetMapping("/product/{id}")
     public String productPage(@PathVariable("id") Long id, Model model) {
         model.addAttribute("product", productService.findById(id)
                 .orElseThrow(NotFoundException::new));

@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -24,7 +25,7 @@ public class PictureServiceBlobImpl implements PictureService {
     public Optional<String> getPictureContentTypeById(long id) {
         return repository.getContentTypeForBlob(id);
     }
-    
+
     @Override
     public Optional<byte[]> getPictureDataById(long id) {
         return repository.getDataForBlob(id);
@@ -45,5 +46,10 @@ public class PictureServiceBlobImpl implements PictureService {
     @Transactional
     public void removePicture(long id) {
         repository.deleteById(id);
+    }
+
+    @Override
+    public List<Picture> findPicturesByIds(List<Long> pictureIds) {
+        return repository.findAllById(pictureIds);
     }
 }

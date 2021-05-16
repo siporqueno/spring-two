@@ -19,7 +19,7 @@
                 <div class="cart_product_list">
                     <h3 class="cart_single_title">Discount Coupon</h3>
                     <div class="table-responsive-md">
-                        <form id="cartItemsForm" th:method="post" th:action="@{/cart/update_all_qty}">
+                        <form id="cartItemsForm" th:method="post" th:action="@{/cart/update-all-qty}">
                             <table class="table">
                                 <thead>
                                 <tr>
@@ -109,7 +109,8 @@
                         </div>
                         <button type="submit" form="cartItemsForm" class="btn btn-primary update_btn">update cart
                         </button>
-                        <button type="submit" class="btn btn-primary checkout_btn">proceed to checkout</button>
+                        <a class="btn btn-primary checkout_btn" th:href="@{/cart/proceed-to-checkout}">
+                            proceed to checkout</a>
                     </div>
                 </div>
             </div>
