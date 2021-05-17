@@ -1,5 +1,6 @@
 package com.porejemplo.service;
 
+import com.porejemplo.aspect.TrackTime;
 import com.porejemplo.controller.repr.UserRepr;
 import com.porejemplo.persist.model.User;
 import com.porejemplo.persist.repo.UserRepository;
@@ -37,6 +38,7 @@ public class UserServiceImpl implements UserService {
                 .collect(Collectors.toList());
     }
 
+    @TrackTime
     @Override
     public Page<UserRepr> findWithFilter(String loginFilter, Integer page, Integer size, String sortField) {
         Specification<User> spec = Specification.where(null);
