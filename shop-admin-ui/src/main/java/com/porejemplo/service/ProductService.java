@@ -1,5 +1,6 @@
 package com.porejemplo.service;
 
+import com.porejemplo.aspect.TrackTime;
 import com.porejemplo.error.NotFoundException;
 import com.porejemplo.controller.repr.ProductRepr;
 import com.porejemplo.persist.model.Picture;
@@ -39,6 +40,7 @@ public class ProductService implements ItemService<ProductRepr> {
         this.pictureService = pictureService;
     }
 
+    @TrackTime
     @Transactional
     @Override
     public List<ProductRepr> findAll() {

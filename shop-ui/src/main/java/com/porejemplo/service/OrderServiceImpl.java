@@ -8,6 +8,8 @@ import com.porejemplo.persist.repo.BrandRepository;
 import com.porejemplo.persist.repo.CategoryRepository;
 import com.porejemplo.persist.repo.OrderRepository;
 import com.porejemplo.service.model.LineItem;
+import com.porejemplo.repr.TextMessage;
+import org.springframework.amqp.core.AmqpTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -26,21 +28,28 @@ public class OrderServiceImpl implements OrderService {
 
     private final CategoryRepository categoryRepository;
 
+    private final AmqpTemplate rabbitTemplate;
+
     @Autowired
-    public OrderServiceImpl(OrderRepository orderRepository, CartService cartService, PictureService pictureService, BrandRepository brandRepository, CategoryRepository categoryRepository) {
+    public OrderServiceImpl(OrderRepository orderRepository, CartService cartService, PictureService pictureService, BrandRepository brandRepository, CategoryRepository categoryRepository, AmqpTemplate rabbitTemplate) {
         this.orderRepository = orderRepository;
         this.cartService = cartService;
         this.pictureService = pictureService;
         this.brandRepository = brandRepository;
         this.categoryRepository = categoryRepository;
+        this.rabbitTemplate = rabbitTemplate;
     }
 
     @Override
     public Order createOrder(User user) {
         Order order = new Order(user);
+        Order finalOrder = order;
         cartService.getLineItems().stream().forEach(lineItem -> order.addOrderItem(mapToOrderItem(lineItem)));
         cartService.clearCart();
-        return orderRepository.save(order);
+        finalOrder = orderRepository.save(order);
+        rabbitTemplate.convertAndSend("users.exchange", "shop", new TextMessage("shop",
+                "Order id: " + finalOrder.getId() + ", Order value: " + finalOrder.getOrderValue()));
+        return order;
     }
 
     private OrderItem mapToOrderItem(LineItem lineItem) {

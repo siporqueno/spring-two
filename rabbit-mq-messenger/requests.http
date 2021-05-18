@@ -1,0 +1,9 @@
+POST http://localhost:8081/send?user=user2
+
+Some text message 3
+
+###
+
+POST http://localhost:8082/send?user=user1
+
+Some text message 0
