@@ -39,6 +39,7 @@
         <module>shop-admin-ui</module>
         <module>shop-ui</module>
         <module>rabbit-mq-messenger</module>
+        <module>shop-common</module>
     </modules>
 
 </project>
