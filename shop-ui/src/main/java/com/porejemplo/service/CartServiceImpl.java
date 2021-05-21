@@ -74,7 +74,7 @@ public class CartServiceImpl implements CartService, Serializable {
     public BigDecimal calculateCartTotalValue() {
         return lineItems.keySet().stream().map(LineItem::getTotal).reduce(BigDecimal.ZERO, BigDecimal::add);
     }
-    
+
     @JsonIgnore
     @Override
     public void updateAllQty(Map<String, String> paramMap) {
