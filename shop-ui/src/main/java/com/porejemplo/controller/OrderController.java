@@ -35,7 +35,7 @@ public class OrderController {
     @GetMapping("/draft")
     public String draftOfOrderPage(Model model) {
         model.addAttribute("cartItems", cartService.getLineItems());
-        model.addAttribute("subTotal", cartService.calculateCartSubTotal());
+        model.addAttribute("subTotal", cartService.calculateCartTotalValue());
         return "register";
     }
 

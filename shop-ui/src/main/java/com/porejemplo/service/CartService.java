@@ -23,7 +23,7 @@ public interface CartService {
 
     List<LineItem> getLineItems();
 
-    BigDecimal calculateCartSubTotal();
+    BigDecimal calculateCartTotalValue();
 
     void updateAllQty(Map<String, String> paramMap);
 

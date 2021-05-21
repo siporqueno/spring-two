@@ -38,7 +38,7 @@ public class CartController {
     @GetMapping
     public String mainPage(Model model) {
         model.addAttribute("lineItems", cartService.getLineItems());
-        model.addAttribute("subTotal", cartService.calculateCartSubTotal());
+        model.addAttribute("subTotal", cartService.calculateCartTotalValue());
         return "shopping_cart";
     }
 
@@ -59,6 +59,10 @@ public class CartController {
     @PostMapping("/update-all-qty")
     public String updateAllQty(@RequestParam Map<String, String> paramMap) {
         logger.info("Product Qty Map: {}", paramMap);
+
+        // Sample of the above logger  output: Product Qty Map: {_csrf=885d9d7d-6433-451e-9242-5695a2d3a424, 1_M=2}
+        // In order to avoid mistakes in CartServiceImpl we will have to filter out (exclude) from further parsing and processing this csrf token
+
         cartService.updateAllQty(paramMap);
         return "redirect:/cart";
     }

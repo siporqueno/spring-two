@@ -8,7 +8,7 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Objects;
 
-@JsonTypeInfo(use= JsonTypeInfo.Id.CLASS)
+@JsonTypeInfo(use = JsonTypeInfo.Id.CLASS)
 public class LineItem implements Serializable {
 
     private Long productId;
@@ -36,6 +36,15 @@ public class LineItem implements Serializable {
 
     public LineItem(Long productId, String color, String material, String size) {
         this.productId = productId;
+        this.color = color;
+        this.material = material;
+        this.size = size;
+    }
+
+    public LineItem(ProductRepr productRepr, Integer qty, String color, String material, String size) {
+        this.productId = productRepr.getId();
+        this.productRepr = productRepr;
+        this.qty = qty;
         this.color = color;
         this.material = material;
         this.size = size;
