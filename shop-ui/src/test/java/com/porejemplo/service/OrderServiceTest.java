@@ -43,12 +43,6 @@ public class OrderServiceTest {
 
     @Test
     public void testMapToOrderItem() {
-        Role role = new Role("GUEST");
-        role.setId(1L);
-        Set<Role> roles = new HashSet<>();
-        roles.add(role);
-        User user = new User(1L, "guest", "guest", roles);
-
         Category expectedCategory = new Category();
         expectedCategory.setId(1L);
         expectedCategory.setName("Category name");
