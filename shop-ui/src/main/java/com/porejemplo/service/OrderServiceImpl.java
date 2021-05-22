@@ -43,7 +43,8 @@ public class OrderServiceImpl implements OrderService {
         return orderRepository.save(order);
     }
 
-    private OrderItem mapToOrderItem(LineItem lineItem) {
+    @Override
+    public OrderItem mapToOrderItem(LineItem lineItem) {
         OrderItem orderItem = new OrderItem();
         Product product = new Product(
                 lineItem.getProductId(),
