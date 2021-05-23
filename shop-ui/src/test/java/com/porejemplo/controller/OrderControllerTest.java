@@ -24,6 +24,7 @@ import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestPropertySource;
+import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 
@@ -45,6 +46,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.setup.MockMvcBuilders.*;
 import static org.springframework.test.web.servlet.ResultActions.*;
 
+@WebAppConfiguration
 @Import(TestConfig.class)
 @ActiveProfiles("test")
 @TestPropertySource(locations = "classpath:application-test.properties")
@@ -54,6 +56,9 @@ public class OrderControllerTest {
 
     @Autowired
     private MockMvc mvc;
+
+    @Autowired
+    private MockHttpSession session;
 
     @Autowired
     private CartService cartService;
@@ -74,7 +79,7 @@ public class OrderControllerTest {
     @Test
     public void testCreateOrder() throws Exception {
 
-        MockHttpSession mockHttpSession = new MockHttpSession();
+        session = new MockHttpSession();
 
         ProductRepr expectedProduct = new ProductRepr();
         expectedProduct.setId(1L);
@@ -82,7 +87,12 @@ public class OrderControllerTest {
         expectedProduct.setTitle("Product title");
 
         cartService.addProductQty(expectedProduct, "color", "material", "M", 1);
-        
+
+        LineItem lineItem = new LineItem(expectedProduct, 2, "color", "material", "M");
+        List<LineItem> lineItemsToPut = new ArrayList<>();
+        lineItemsToPut.add(lineItem);
+        session.setAttribute("lineItems", lineItemsToPut);
+
         List<LineItem> lineItems = cartService.getLineItems();
         assertNotNull(lineItems);
         assertEquals(1, lineItems.size());
@@ -101,12 +111,11 @@ public class OrderControllerTest {
         assertEquals(expectedUser.getPassword(), user.getPassword());
         assertEquals(1, userRepository.findAll().size());
 
-        mvc.perform(get("/order/create"))
+        mvc.perform(get("/order/create")
+                .session(session))
                 .andExpect(status().is3xxRedirection())
                 .andExpect(view().name("redirect:/order"));
 
-
-//        assertEquals(0, cartService.getLineItems().size());
 
         List<Order> orders = orderService.findAllByUserWithOrderItemsFetch(expectedUser);
 
