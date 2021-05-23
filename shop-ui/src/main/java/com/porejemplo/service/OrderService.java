@@ -14,4 +14,6 @@ public interface OrderService {
     OrderItem mapToOrderItem(LineItem lineItem);
 
     List<Order> findAllByUser(User user);
+
+    List<Order> findAllByUserWithOrderItemsFetch(User user);
 }

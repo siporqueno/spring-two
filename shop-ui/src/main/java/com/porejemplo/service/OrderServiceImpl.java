@@ -67,4 +67,9 @@ public class OrderServiceImpl implements OrderService {
     public List<Order> findAllByUser(User user) {
         return orderRepository.findAllByUser(user);
     }
+
+    @Override
+    public List<Order> findAllByUserWithOrderItemsFetch(User user) {
+        return orderRepository.findAllByUserWithOrderItemsFetch(user);
+    }
 }
