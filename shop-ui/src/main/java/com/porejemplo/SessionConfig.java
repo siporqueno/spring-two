@@ -13,7 +13,7 @@ import org.springframework.session.data.redis.config.annotation.web.http.EnableR
 
 import java.math.BigDecimal;
 
-@Profile("!dev")
+@Profile("!dev & !test")
 @Configuration
 @EnableRedisHttpSession
 public class SessionConfig implements BeanClassLoaderAware {

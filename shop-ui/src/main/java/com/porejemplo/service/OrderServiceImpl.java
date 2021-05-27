@@ -43,7 +43,8 @@ public class OrderServiceImpl implements OrderService {
         return orderRepository.save(order);
     }
 
-    private OrderItem mapToOrderItem(LineItem lineItem) {
+    @Override
+    public OrderItem mapToOrderItem(LineItem lineItem) {
         OrderItem orderItem = new OrderItem();
         Product product = new Product(
                 lineItem.getProductId(),
@@ -65,5 +66,10 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public List<Order> findAllByUser(User user) {
         return orderRepository.findAllByUser(user);
+    }
+
+    @Override
+    public List<Order> findAllByUserWithOrderItemsFetch(User user) {
+        return orderRepository.findAllByUserWithOrderItemsFetch(user);
     }
 }

@@ -51,7 +51,7 @@
                                     </td>
                                     <td><p>$[[${lineItem.productRepr.price}]]</p></td>
                                     <td><p>[[${lineItem.size}]]</p></td>
-                                    <td><input type="text" th:name="${lineItem.productId+'_'+lineItem.size}"
+                                    <td><input type="number" th:name="${lineItem.productId+'_'+lineItem.size}"
                                                th:value="${lineItem.qty}"></td>
                                     <td><p>[[${lineItem.total}]]</p></td>
                                 </tr>

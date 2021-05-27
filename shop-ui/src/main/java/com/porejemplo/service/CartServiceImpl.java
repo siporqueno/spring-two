@@ -17,7 +17,7 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
 
-@JsonTypeInfo(use= JsonTypeInfo.Id.CLASS)
+@JsonTypeInfo(use = JsonTypeInfo.Id.CLASS)
 @Service
 @Scope(scopeName = "session", proxyMode = ScopedProxyMode.TARGET_CLASS)
 public class CartServiceImpl implements CartService, Serializable {
@@ -71,7 +71,7 @@ public class CartServiceImpl implements CartService, Serializable {
 
     @JsonIgnore
     @Override
-    public BigDecimal calculateCartSubTotal() {
+    public BigDecimal calculateCartTotalValue() {
         return lineItems.keySet().stream().map(LineItem::getTotal).reduce(BigDecimal.ZERO, BigDecimal::add);
     }
 
@@ -80,12 +80,14 @@ public class CartServiceImpl implements CartService, Serializable {
     public void updateAllQty(Map<String, String> paramMap) {
         paramMap.entrySet().forEach(paramItem -> {
             String[] params = paramItem.getKey().split("_");
-            Long productId = Long.valueOf(params[0]);
-            String size = params[1];
-            Integer qty = Integer.parseInt(paramItem.getValue());
-            LineItem lineItemToUpdate = new LineItem(productId, "", "", size);
-            if (qty > 0) lineItems.put(lineItemToUpdate, qty);
-            else lineItems.remove(lineItemToUpdate);
+            if (!params[0].isBlank()) {
+                Long productId = Long.valueOf(params[0]);
+                String size = params[1];
+                Integer qty = Integer.parseInt(paramItem.getValue());
+                LineItem lineItemToUpdate = new LineItem(productId, "", "", size);
+                if (qty > 0) lineItems.put(lineItemToUpdate, qty);
+                else lineItems.remove(lineItemToUpdate);
+            }
         });
     }
 
