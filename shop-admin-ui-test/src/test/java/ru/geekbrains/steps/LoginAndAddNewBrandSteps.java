@@ -1,7 +1,5 @@
 package ru.geekbrains.steps;
 
-import cucumber.api.java.After;
-import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import org.openqa.selenium.By;
@@ -11,11 +9,11 @@ import ru.geekbrains.DriverInitializer;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class LoginSteps {
+public class LoginAndAddNewBrandSteps {
 
     private WebDriver webDriver;
 
-    @Given("^I open web browser$")
+    /*@Given("^I open web browser$")
     public void iOpenFirefoxBrowser() throws Throwable {
         webDriver = DriverInitializer.getDriver();
     }
@@ -45,9 +43,46 @@ public class LoginSteps {
     public void nameShouldBe(String name) throws Throwable {
         WebElement webElement = webDriver.findElement(By.id("dd_user"));
         assertThat(webElement.getText()).isEqualTo(name);
+    }*/
+
+   /* @When("^I click on Brands button$")
+    public void iClickOnBrandsButton(){
+        webDriver = DriverInitializer.getDriver();
+        WebElement webElement = webDriver.findElement(By.id("brands_link"));
+        webElement.click();
+    }*/
+
+    /*@Then("^The page which has been rendered shall be Brands$")
+    public void pageBrandsRendered(){
+        webDriver = DriverInitializer.getDriver();
+        webDriver.findElement(By.id("brands"));
     }
 
-    @Given("^any user logged in$")
+    @When("^I click on Add brand button$")
+    public void iClickOnAddBrandButton(){
+        WebElement webElement = webDriver.findElement(By.id("add_brand_link"));
+        webElement.click();
+    }
+
+    @Then("^Brand form is provided$")
+    public void brandFormProvided(){
+        webDriver.findElement(By.id("brand_form"));
+    }
+
+    @When("^I provide brand name as \"([^\"]*)\"$")
+    public void iProvideBrandNameAs(String brand) throws InterruptedException {
+        WebElement webElement = webDriver.findElement(By.id("inp_brand_name"));
+        webElement.sendKeys(brand);
+        Thread.sleep(2000);
+    }
+
+    @When("^I click on Submit button$")
+    public void iClickOnSubmitButton(){
+        WebElement webElement = webDriver.findElement(By.id("submit_brand_button"));
+        webElement.click();
+    }*/
+
+    /*@Given("^any user logged in$")
     public void userLoggedIn() {
         webDriver.findElement(By.id("logged-in-username"));
     }
@@ -75,46 +110,5 @@ public class LoginSteps {
     @After
     public void quitBrowser() {
         webDriver.quit();
-    }
-
-     @When("^I click on Brands button$")
-    public void iClickOnBrandsButton(){
-        WebElement webElement = webDriver.findElement(By.id("brands_link"));
-        webElement.click();
-    }
-
-    @Then("^The page which has been rendered shall be Brands$")
-    public void pageBrandsRendered() throws InterruptedException {
-        Thread.sleep(2000);
-        webDriver.findElement(By.id("brands"));
-    }
-
-    @When("^I click on Add brand button$")
-    public void iClickOnAddBrandButton(){
-        WebElement webElement = webDriver.findElement(By.id("add_brand_link"));
-        webElement.click();
-    }
-
-    @Then("^Brand form is provided$")
-    public void brandFormProvided(){
-        webDriver.findElement(By.id("brand_form"));
-    }
-
-    @When("^I provide brand name as \"([^\"]*)\"$")
-    public void iProvideBrandNameAs(String brand) throws InterruptedException {
-        WebElement webElement = webDriver.findElement(By.id("inp_brand_name"));
-        webElement.sendKeys(brand);
-        Thread.sleep(2000);
-    }
-
-    @When("^I click on Submit button$")
-    public void iClickOnSubmitButton(){
-        WebElement webElement = webDriver.findElement(By.id("submit_brand_button"));
-        webElement.click();
-    }
-
-    @Then("^The Brand with the name \"([^\"]*)\" has been added$")
-    public void listOfBrandsContainsTheBrandAdded(String brand){
-        webDriver.findElement(By.name("Brand 2"));
-    }
+    }*/
 }
