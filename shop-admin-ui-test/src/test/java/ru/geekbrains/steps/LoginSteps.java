@@ -1,10 +1,12 @@
 package ru.geekbrains.steps;
 
 import cucumber.api.java.After;
+import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import ru.geekbrains.DriverInitializer;
@@ -77,8 +79,8 @@ public class LoginSteps {
         webDriver.quit();
     }
 
-     @When("^I click on Brands button$")
-    public void iClickOnBrandsButton(){
+    @When("^I click on Brands button$")
+    public void iClickOnBrandsButton() {
         WebElement webElement = webDriver.findElement(By.id("brands_link"));
         webElement.click();
     }
@@ -90,13 +92,13 @@ public class LoginSteps {
     }
 
     @When("^I click on Add brand button$")
-    public void iClickOnAddBrandButton(){
+    public void iClickOnAddBrandButton() {
         WebElement webElement = webDriver.findElement(By.id("add_brand_link"));
         webElement.click();
     }
 
     @Then("^Brand form is provided$")
-    public void brandFormProvided(){
+    public void brandFormProvided() {
         webDriver.findElement(By.id("brand_form"));
     }
 
@@ -108,13 +110,33 @@ public class LoginSteps {
     }
 
     @When("^I click on Submit button$")
-    public void iClickOnSubmitButton(){
+    public void iClickOnSubmitButton() {
         WebElement webElement = webDriver.findElement(By.id("submit_brand_button"));
         webElement.click();
     }
 
     @Then("^The Brand with the name \"([^\"]*)\" has been added$")
-    public void listOfBrandsContainsTheBrandAdded(String brand){
+    public void listOfBrandsContainsTheBrandAdded(String brand) {
         webDriver.findElement(By.name("Brand 2"));
+    }
+
+    @When("^I navigate to brands page$")
+    public void iNavigateToBrandsHtmlPage() throws Throwable {
+        webDriver.get(DriverInitializer.getProperty("brand.url"));
+    }
+
+    @When("^I click button to remove brand on the row of the brand \"([^\"]*)\"$")
+    public void iClickOnTheButtonToRemoveBrand(String brand) {
+        WebElement webElement = webDriver.findElement(By.name(brand + " del btn"));
+        webElement.click();
+    }
+
+    @And("^The page does not contain row with brand \"([^\"]*)\" anymore$")
+    public void makeSureThatBrandIsNotPresent(String brand) {
+        try {
+            webDriver.findElement(By.name(brand));
+        } catch (NoSuchElementException e) {
+            e.printStackTrace();
+        }
     }
 }

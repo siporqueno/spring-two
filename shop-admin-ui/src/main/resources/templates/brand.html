@@ -42,7 +42,8 @@
                                         <form
                                                 class="d-inline" th:method="delete"
                                                 th:action="@{/brand/{id}(id = ${brand.id})}">
-                                            <button type="submit" class="btn btn-danger"><i
+                                            <button th:name="${brand.name+' del btn'}" type="submit"
+                                                    class="btn btn-danger"><i
                                                     class="far fa-trash-alt"></i></button>
                                         </form>
                                     </td>
