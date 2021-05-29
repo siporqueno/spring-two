@@ -38,7 +38,8 @@
                                     <td th:text="${brand.name}" th:name="${brand.name}">Guest</td>
                                     <td>
                                         <a class="btn btn-success"
-                                           th:href="@{/brand/{id}(id = ${brand.id})}"><i class="fas fa-edit"></i></a>
+                                           th:href="@{/brand/{id}(id = ${brand.id})}"
+                                           th:name="${brand.name+' edit btn'}"><i class="fas fa-edit"></i></a>
                                         <form
                                                 class="d-inline" th:method="delete"
                                                 th:action="@{/brand/{id}(id = ${brand.id})}">

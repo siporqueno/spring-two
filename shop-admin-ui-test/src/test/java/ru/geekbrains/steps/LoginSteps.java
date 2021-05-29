@@ -117,7 +117,7 @@ public class LoginSteps {
 
     @Then("^The Brand with the name \"([^\"]*)\" has been added$")
     public void listOfBrandsContainsTheBrandAdded(String brand) {
-        webDriver.findElement(By.name("Brand 2"));
+        webDriver.findElement(By.name(brand));
     }
 
     @When("^I navigate to brands page$")
@@ -138,5 +138,20 @@ public class LoginSteps {
         } catch (NoSuchElementException e) {
             e.printStackTrace();
         }
+    }
+
+    // Additional steps for Feature: Login and change brand
+
+    @When("^I click button to change brand on the row of the brand \"([^\"]*)\"$")
+    public void iClickOnTheButtonToChangeBrand(String brand) {
+        WebElement webElement = webDriver.findElement(By.name(brand + " edit btn"));
+        webElement.click();
+    }
+
+    @When("^I clear the input field for brand$")
+    public void iClearInputFieldForBrand() throws InterruptedException {
+        WebElement webElement = webDriver.findElement(By.id("inp_brand_name"));
+        webElement.clear();
+        Thread.sleep(2000);
     }
 }
