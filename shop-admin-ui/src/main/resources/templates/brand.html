@@ -13,14 +13,14 @@
     <div th:replace="fragments/sidebar :: sidebar"></div>
 
     <div class="content p-4">
-        <h2 class="mb-4">Brands</h2>
+        <h2 th:id="brands" class="mb-4">Brands</h2>
 
         <div class="card mb-4">
             <div class="card-body">
                 <div class="container">
                     <div class="row py-2">
                         <div class="col-12">
-                            <a class="btn btn-primary" th:href="@{/brand/new}">Добавить Бренд</a>
+                            <a th:id="add_brand_link" class="btn btn-primary" th:href="@{/brand/new}">Добавить Бренд</a>
                         </div>
 
                         <div class="col-12">
@@ -35,13 +35,16 @@
                                 <tbody>
                                 <tr th:unless="${brands.isEmpty()}" th:each="brand : ${brands}">
                                     <td th:text="${brand.id}">1</td>
-                                    <td th:text="${brand.name}">Guest</td>
+                                    <td th:text="${brand.name}" th:name="${brand.name}">Guest</td>
                                     <td>
                                         <a class="btn btn-success"
-                                           th:href="@{/brand/{id}(id = ${brand.id})}"><i class="fas fa-edit"></i></a>
+                                           th:href="@{/brand/{id}(id = ${brand.id})}"
+                                           th:name="${brand.name+' edit btn'}"><i class="fas fa-edit"></i></a>
                                         <form
-                                              class="d-inline" th:method="delete" th:action="@{/brand/{id}(id = ${brand.id})}">
-                                            <button type="submit" class="btn btn-danger"><i
+                                                class="d-inline" th:method="delete"
+                                                th:action="@{/brand/{id}(id = ${brand.id})}">
+                                            <button th:name="${brand.name+' del btn'}" type="submit"
+                                                    class="btn btn-danger"><i
                                                     class="far fa-trash-alt"></i></button>
                                         </form>
                                     </td>

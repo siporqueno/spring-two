@@ -11,7 +11,7 @@
 
     <div th:replace="fragments/sidebar :: sidebar"></div>
 
-    <div class="content p-4">
+    <div th:id="brand_form" class="content p-4">
         <h2 class="mb-4">Brand Form</h2>
 
         <div class="card mb-4">
@@ -23,13 +23,13 @@
                                 <input type="hidden" th:field="*{id}" id="id" name="id">
 
                                 <div class="form-group">
-                                    <label>Role</label>
-                                    <input type="text" th:field="*{name}" class="form-control" id="brand"
+                                    <label>Brand</label>
+                                    <input th:id="inp_brand_name" type="text" th:field="*{name}" class="form-control" id="brand"
                                            name="brand"
                                            placeholder="Enter brand">
                                 </div>
 
-                                <button type="submit" class="btn btn-primary">Submit</button>
+                                <button th:id="submit_brand_button" type="submit" class="btn btn-primary">Submit</button>
                             </form>
                         </div>
                     </div>
