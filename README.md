@@ -3,9 +3,10 @@ eShop application
 Stack of technologies:
 Bootstrap, Thymeleaf
 Maven
-Spring Boot (Spring MVC, Spring Data JPA, Spring Security, Spring Messaging)
+Spring Boot (Spring MVC, Spring Data JPA, Spring Security, Spring AOP, Spring AMQP)
 RabbitMQ
 MySQL, Redis, H2 (for testing)
+Liquibase
 Websocket (for chat)
 NGINX
 Docker
