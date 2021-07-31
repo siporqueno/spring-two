@@ -13,8 +13,8 @@ Docker
 Docker Compose
 GitHub Actions
 
-Junit Jupiter and Mockito for Unit tests
-Spring Mock MVC for integration tests
+Junit Jupiter and Mockito for Unit tests,
+Spring Mock MVC for integration tests,
 Cucumber and Selenium for UI Tests
 
 
