@@ -11,6 +11,7 @@ Websocket (for chat)
 NGINX
 Docker
 Docker Compose
+GitHub Actions
 
 Junit Jupiter and Mockito for Unit tests
 Spring Mock MVC for integration tests
