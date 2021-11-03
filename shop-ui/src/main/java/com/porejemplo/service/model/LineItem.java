@@ -50,6 +50,10 @@ public class LineItem implements Serializable {
         this.size = size;
     }
 
+    private LineItem(Builder builder) {
+        this.productId = builder.getProductRepr().getId();
+    }
+
     public Long getProductId() {
         return productId;
     }
@@ -117,6 +121,94 @@ public class LineItem implements Serializable {
     @Override
     public int hashCode() {
         return Objects.hash(productId, color, material, size);
+    }
+
+    public static class Builder {
+
+        private ProductRepr productRepr;
+
+        private Integer qty;
+
+        private String color;
+
+        private String material;
+
+        private String size;
+
+        public Builder(ProductRepr productRepr) {
+            /*if (productRepr == null) {
+                throw new IllegalArgumentException("productRepr cannot be null.");
+            }*/
+            Objects.requireNonNull(productRepr, "productRepr cannot be null.");
+
+            this.productRepr = productRepr;
+            this.qty = 1;
+        }
+
+        public Builder withQty(Integer qty) {
+            this.qty = qty;
+            return this;
+        }
+
+        public Builder withColor(String color) {
+            this.color = color;
+            return this;
+        }
+
+        public Builder withMaterial(String material) {
+            this.material = material;
+            return this;
+        }
+
+        public Builder withSize(String size) {
+            this.size = size;
+            return this;
+        }
+
+        public LineItem build() {
+            return new LineItem(this);
+        }
+
+        public ProductRepr getProductRepr() {
+            return productRepr;
+        }
+
+        public void setProductRepr(ProductRepr productRepr) {
+            this.productRepr = productRepr;
+        }
+
+        public Integer getQty() {
+            return qty;
+        }
+
+        public void setQty(Integer qty) {
+            this.qty = qty;
+        }
+
+        public String getColor() {
+            return color;
+        }
+
+        public void setColor(String color) {
+            this.color = color;
+        }
+
+        public String getMaterial() {
+            return material;
+        }
+
+        public void setMaterial(String material) {
+            this.material = material;
+        }
+
+        public String getSize() {
+            return size;
+        }
+
+        public void setSize(String size) {
+            this.size = size;
+        }
+
     }
 
 }
