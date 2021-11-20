@@ -4,66 +4,46 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.porejemplo.controller.repr.ProductRepr;
 
-import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Objects;
 
 @JsonTypeInfo(use = JsonTypeInfo.Id.CLASS)
-public class LineItem implements Serializable {
+public class LineItem {
 
-    private Long productId;
+    private final Long productId;
 
-    private ProductRepr productRepr;
+    private final ProductRepr productRepr;
 
     private Integer qty;
 
-    private String color;
+    private final String color;
 
-    private String material;
+    private final String material;
 
-    private String size;
+    private final String size;
 
-    public LineItem(ProductRepr productRepr, String color, String material, String size) {
-        this.productId = productRepr.getId();
-        this.productRepr = productRepr;
-        this.color = color;
-        this.material = material;
-        this.size = size;
-    }
+    private LineItem(Builder builder) {
 
-    public LineItem() {
-    }
+        if (builder.productRepr != null) {
+            this.productRepr = builder.productRepr;
+            this.productId = this.productRepr.getId();
+        } else {
+            this.productRepr = null;
+            this.productId = builder.productId;
+        }
 
-    public LineItem(Long productId, String color, String material, String size) {
-        this.productId = productId;
-        this.color = color;
-        this.material = material;
-        this.size = size;
-    }
-
-    public LineItem(ProductRepr productRepr, Integer qty, String color, String material, String size) {
-        this.productId = productRepr.getId();
-        this.productRepr = productRepr;
-        this.qty = qty;
-        this.color = color;
-        this.material = material;
-        this.size = size;
+        this.qty = builder.qty;
+        this.color = builder.color;
+        this.material = builder.material;
+        this.size = builder.size;
     }
 
     public Long getProductId() {
         return productId;
     }
 
-    public void setProductId(Long productId) {
-        this.productId = productId;
-    }
-
     public ProductRepr getProductRepr() {
         return productRepr;
-    }
-
-    public void setProductRepr(ProductRepr productRepr) {
-        this.productRepr = productRepr;
     }
 
     public Integer getQty() {
@@ -78,24 +58,12 @@ public class LineItem implements Serializable {
         return color;
     }
 
-    public void setColor(String color) {
-        this.color = color;
-    }
-
     public String getMaterial() {
         return material;
     }
 
-    public void setMaterial(String material) {
-        this.material = material;
-    }
-
     public String getSize() {
         return size;
-    }
-
-    public void setSize(String size) {
-        this.size = size;
     }
 
     @JsonIgnore
@@ -117,6 +85,64 @@ public class LineItem implements Serializable {
     @Override
     public int hashCode() {
         return Objects.hash(productId, color, material, size);
+    }
+
+    public static Builder builder(ProductRepr productRepr, Long productId){
+        return new Builder(productRepr, productId);
+    }
+
+    public static class Builder {
+
+        private Long productId;
+
+        private ProductRepr productRepr;
+
+        private Integer qty;
+
+        private String color;
+
+        private String material;
+
+        private String size;
+
+        public Builder(ProductRepr productRepr, Long productId) {
+            if (productRepr == null && productId == null) {
+                throw new IllegalArgumentException("Both productRepr and productId cannot be null at the same time.");
+            }
+
+            if (productRepr != null) {
+                this.productRepr = productRepr;
+            } else {
+                this.productId = productId;
+            }
+
+            this.qty = 1;
+        }
+
+        public Builder withQty(Integer qty) {
+            this.qty = qty;
+            return this;
+        }
+
+        public Builder withColor(String color) {
+            this.color = color;
+            return this;
+        }
+
+        public Builder withMaterial(String material) {
+            this.material = material;
+            return this;
+        }
+
+        public Builder withSize(String size) {
+            this.size = size;
+            return this;
+        }
+
+        public LineItem build() {
+            return new LineItem(this);
+        }
+
     }
 
 }
